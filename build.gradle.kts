@@ -8,7 +8,7 @@ plugins {
     kotlin("plugin.jpa") version "1.4.21"
 }
 
-group = "org.example"
+group = "kim.myeongjae"
 version = "1.0-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
@@ -16,18 +16,15 @@ repositories {
     mavenCentral()
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "11"
-    }
-}
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
-
 subprojects {
     apply(plugin = "org.jetbrains.kotlin.jvm")
+
+    tasks.withType<KotlinCompile> {
+        kotlinOptions {
+            freeCompilerArgs = listOf("-Xjsr305=strict")
+            jvmTarget = "11"
+        }
+    }
 
     repositories {
         mavenCentral()
@@ -40,6 +37,10 @@ configure(springProjects) {
     apply(plugin = "io.spring.dependency-management")
     apply(plugin = "org.jetbrains.kotlin.plugin.spring")
 
+    tasks.withType<Test> {
+        useJUnitPlatform()
+    }
+
     dependencies {
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
@@ -48,3 +49,4 @@ configure(springProjects) {
         testImplementation("org.springframework.boot:spring-boot-starter-test")
     }
 }
+
