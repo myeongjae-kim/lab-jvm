@@ -31,37 +31,6 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="lab-jvm" type="f1a62948:ProjectNode" />
               </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="lab-jvm" type="f1a62948:ProjectNode" />
-                <item name="spring-web-kotlin-blocking" type="2d1252cf:ModuleNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="lab-jvm" type="f1a62948:ProjectNode" />
-                <item name="spring-web-kotlin-blocking" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="lab-jvm" type="f1a62948:ProjectNode" />
-                <item name="spring-web-kotlin-blocking" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="application" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="lab-jvm" type="f1a62948:ProjectNode" />
-                <item name="spring-web-kotlin-blocking" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="verification" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="lab-jvm" type="f1a62948:ProjectNode" />
-                <item name="spring-web-kotlin-blocking" type="2d1252cf:ModuleNode" />
-                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
-              </path>
             </expand>
             <select />
           </tree_state>
@@ -136,14 +105,16 @@
       <recent name="kim.myeongjae.spring_web_kotiln_blocking" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.lab-jvm:spring-web-kotlin-blocking [bootRun]">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+  <component name="RunManager" selected="Gradle.lab-jvm [check]">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -160,27 +131,6 @@
         <option name="taskNames">
           <list>
             <option value=":spring-web-kotlin-blocking:integrationTest" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="ArticleRepositoryTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;kim.myeongjae.spring_web_kotiln_blocking.article.domain.model.ArticleRepositoryTest&quot;" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":spring-web-kotlin-blocking:test" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -207,6 +157,27 @@
         <option name="vmOptions" value="" />
       </ExternalSystemSettings>
       <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="lab-jvm [check]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="check" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
@@ -260,6 +231,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="SpringWebKotlinBlockingApplication (2)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="lab-jvm.spring-web-kotlin-blocking.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="kim.myeongjae.SpringWebKotlinBlockingApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="SpringWebKotlinBlockingApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="lab-jvm.spring-web-kotlin-blocking.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="kim.myeongjae.app.spring.web.kotiln.blocking.SpringWebKotlinBlockingApplication" />
@@ -269,11 +247,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.lab-jvm [check]" />
         <item itemvalue="Gradle.lab-jvm:spring-web-kotlin-blocking [bootRun]" />
         <item itemvalue="Gradle.ArticleControllerIntTest.getArticle" />
         <item itemvalue="Gradle.ArticleRepositoryTest.saveAndFindById" />
         <item itemvalue="Gradle.lab-jvm:spring-web-kotlin-blocking [test]" />
-        <item itemvalue="Gradle.ArticleRepositoryTest" />
       </list>
     </recent_temporary>
   </component>

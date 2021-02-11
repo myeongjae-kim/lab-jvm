@@ -13,9 +13,9 @@ import javax.persistence.Table
 @Entity
 @Table(indexes = [Index(name = "ux_article_slug", columnList = "slug", unique = true)])
 class Article(
-        var title: String,
-        var content: String,
-        var slug: String,
+    var title: String,
+    var content: String,
+    var slug: String,
 ) {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null

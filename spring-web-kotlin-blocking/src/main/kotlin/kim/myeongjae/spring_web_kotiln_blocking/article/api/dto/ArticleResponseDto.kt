@@ -31,4 +31,3 @@ data class ArticleResponseDto(
         )
     }
 }
-

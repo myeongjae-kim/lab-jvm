@@ -68,7 +68,6 @@ configure(springProjects) {
 
     configurations["intTestRuntimeOnly"].extendsFrom(configurations.runtimeOnly.get())
 
-
     tasks.withType<Test> {
         useJUnitPlatform()
     }
@@ -97,4 +96,3 @@ configure(springProjects) {
         intTestImplementation("org.springframework.boot:spring-boot-starter-test")
     }
 }
-
