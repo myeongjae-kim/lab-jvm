@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6467f84d-7812-4dc9-8061-7e70475a10cf" name="Default Changelist" comment="add article model and repository.">
-      <change afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/test/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/test/resources/data/test-article.sql" afterDir="false" />
+    <list default="true" id="6467f84d-7812-4dc9-8061-7e70475a10cf" name="Default Changelist" comment="add article repository methods.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/main/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/domain/model/Article.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/main/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/domain/model/Article.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/main/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/domain/model/ArticleRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/main/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/domain/model/ArticleRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/test/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/domain/model/ArticleRepositoryTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/test/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/domain/model/ArticleRepositoryTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/test/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/domain/model/ArticleTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/test/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/domain/model/ArticleTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/testFixtures/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/domain/model/ArticleFixture.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/testFixtures/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/domain/model/ArticleFixture.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-web-kotlin-blocking/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -275,7 +269,7 @@
       <updated>1613013704414</updated>
       <workItem from="1613013705657" duration="202000" />
       <workItem from="1613013929258" duration="4203000" />
-      <workItem from="1613021891315" duration="8341000" />
+      <workItem from="1613021891315" duration="9301000" />
     </task>
     <task id="LOCAL-00001" summary="add int test sourceSet">
       <created>1613024795339</created>
@@ -319,7 +313,14 @@
       <option name="project" value="LOCAL" />
       <updated>1613029326310</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="add article repository methods.">
+      <created>1613030979551</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1613030979551</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -340,14 +341,15 @@
     <MESSAGE value="update import settings" />
     <MESSAGE value="rename test class" />
     <MESSAGE value="add article model and repository." />
-    <option name="LAST_COMMIT_MESSAGE" value="add article model and repository." />
+    <MESSAGE value="add article repository methods." />
+    <option name="LAST_COMMIT_MESSAGE" value="add article repository methods." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/spring-web-kotlin-blocking/src/test/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/domain/model/ArticleRepositoryTest.kt</url>
-          <line>53</line>
+          <line>56</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
