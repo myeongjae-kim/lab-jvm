@@ -2,13 +2,6 @@ plugins {
     `java-test-fixtures`
     kotlin("plugin.spring")
     kotlin("plugin.jpa")
-    kotlin("plugin.allopen")
-}
-
-allOpen {
-    annotation("javax.persistence.Entity")
-    annotation("javax.persistence.Embeddable")
-    annotation("javax.persistence.MappedSuperclass")
 }
 
 sourceSets {
@@ -26,5 +19,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    runtimeOnly("com.h2database:h2")
+    runtimeOnly("com.h2database:h2:1.4.199")
+    runtimeOnly("mysql:mysql-connector-java")
 }

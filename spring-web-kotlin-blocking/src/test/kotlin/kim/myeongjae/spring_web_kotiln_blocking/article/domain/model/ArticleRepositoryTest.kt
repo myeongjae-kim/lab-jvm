@@ -11,12 +11,12 @@ import org.springframework.data.domain.PageRequest
 import org.springframework.test.context.jdbc.Sql
 import org.springframework.transaction.annotation.Transactional
 
+@Transactional
 @DataJpaTest
 @Sql("/data/test-article.sql")
-@Transactional
 class ArticleRepositoryTest @Autowired constructor (
     val entityManager: TestEntityManager,
-    val articleRepository: ArticleRepository
+    val articleRepository: ArticleRepository,
 ) {
 
     @Test

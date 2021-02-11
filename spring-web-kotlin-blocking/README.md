@@ -6,7 +6,12 @@
 
 https://spring.io/guides/tutorials/spring-boot-kotlin/#_persistence_with_jpa
 
-`allopen` 플러그인 사용법
+    kotlin("plugin.spring")
+    kotlin("plugin.jpa")
+
+두 플러그인의 정체
+  - https://kotlinlang.org/docs/reference/compiler-plugins.html#spring-support
+  - https://kotlinlang.org/docs/reference/compiler-plugins.html#jpa-support
 
 ## 결론
 
