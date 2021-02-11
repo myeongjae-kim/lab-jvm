@@ -2,12 +2,14 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     `java-test-fixtures`
+
     id("org.springframework.boot") version "2.4.2"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
+    id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
+
     kotlin("jvm") version "1.4.21"
     kotlin("plugin.spring") version "1.4.21"
     kotlin("plugin.jpa") version "1.4.21"
-    id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
 }
 
 group = "kim.myeongjae"
@@ -65,7 +67,6 @@ configure(springProjects) {
 
     configurations["intTestRuntimeOnly"].extendsFrom(configurations.runtimeOnly.get())
 
-
     tasks.withType<Test> {
         useJUnitPlatform()
     }
@@ -90,7 +91,7 @@ configure(springProjects) {
 
         developmentOnly("org.springframework.boot:spring-boot-devtools")
         testImplementation("org.springframework.boot:spring-boot-starter-test")
+        testFixturesImplementation("org.springframework.boot:spring-boot-starter-test")
         intTestImplementation("org.springframework.boot:spring-boot-starter-test")
     }
 }
-
