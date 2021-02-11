@@ -20,6 +20,14 @@ repositories {
     mavenCentral()
 }
 
+tasks.ktlintFormat {
+    group = "verification"
+}
+
+tasks.ktlintCheck {
+    group = "other"
+}
+
 subprojects {
     apply(plugin = "org.jetbrains.kotlin.jvm")
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
@@ -37,6 +45,15 @@ subprojects {
 
     tasks.ktlintCheck {
         group = "other"
+    }
+
+    tasks.check {
+        val excludedTasks = listOf(
+            tasks.ktlintMainSourceSetCheck,
+            tasks.ktlintTestSourceSetCheck,
+            tasks.ktlintTestFixturesSourceSetCheck
+        )
+        setDependsOn(dependsOn.filter { !excludedTasks.contains(it) })
     }
 
     repositories {
@@ -81,7 +98,6 @@ configure(springProjects) {
     }
 
     tasks.check {
-        integrationTest.mustRunAfter(tasks.ktlintFormat)
         dependsOn(tasks.ktlintFormat, integrationTest)
     }
 
