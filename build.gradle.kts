@@ -1,12 +1,13 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    `java-test-fixtures`
     id("org.springframework.boot") version "2.4.2"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     kotlin("jvm") version "1.4.21"
     kotlin("plugin.spring") version "1.4.21"
     kotlin("plugin.jpa") version "1.4.21"
-    `java-test-fixtures`
+    id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
 }
 
 group = "kim.myeongjae"
@@ -19,12 +20,21 @@ repositories {
 
 subprojects {
     apply(plugin = "org.jetbrains.kotlin.jvm")
+    apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
     tasks.withType<KotlinCompile> {
         kotlinOptions {
             freeCompilerArgs = listOf("-Xjsr305=strict")
             jvmTarget = "11"
         }
+    }
+
+    tasks.ktlintFormat {
+        group = "verification"
+    }
+
+    tasks.ktlintCheck {
+        group = "other"
     }
 
     repositories {
@@ -69,7 +79,10 @@ configure(springProjects) {
         shouldRunAfter("test")
     }
 
-    tasks.check { dependsOn(integrationTest) }
+    tasks.check {
+        integrationTest.mustRunAfter(tasks.ktlintFormat)
+        dependsOn(tasks.ktlintFormat, integrationTest)
+    }
 
     dependencies {
         implementation("org.jetbrains.kotlin:kotlin-reflect")
