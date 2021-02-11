@@ -21,6 +21,12 @@ class ArticleControllerIntTest @Autowired constructor(val mvc: MockMvc) {
     fun getArticle() {
         mvc.perform(MockMvcRequestBuilders.get("/articles/slug1"))
             .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(MockMvcResultMatchers.jsonPath("$.id").doesNotExist())
+            .andExpect(MockMvcResultMatchers.jsonPath("$.published").doesNotExist())
+            .andExpect(MockMvcResultMatchers.jsonPath("$.title").isString)
+            .andExpect(MockMvcResultMatchers.jsonPath("$.content").isString)
+            .andExpect(MockMvcResultMatchers.jsonPath("$.createdAt").isString)
+            .andExpect(MockMvcResultMatchers.jsonPath("$.updatedAt").isString)
             .andDo(MockMvcResultHandlers.print())
     }
 }

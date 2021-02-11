@@ -1,4 +1,4 @@
-package kim.myeongjae.spring_web_kotiln_blocking
+package kim.myeongjae
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

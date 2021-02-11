@@ -4,19 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6467f84d-7812-4dc9-8061-7e70475a10cf" name="Default Changelist" comment="update README.md">
-      <change afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/intTest/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/api/ArticleControllerIntTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/intTest/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/intTest/resources/data/test-article.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/main/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/api/ArticleController.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/main/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/api/dto/ArticleResponseDto.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-web-kotlin-blocking/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-web-kotlin-blocking/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/test/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/domain/model/ArticleRepositoryTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/test/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/domain/model/ArticleRepositoryTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/test/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/test/resources/application.yml" afterDir="false" />
-    </list>
+    <list default="true" id="6467f84d-7812-4dc9-8061-7e70475a10cf" name="Default Changelist" comment="add json view" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -59,6 +47,13 @@
                 <item name="lab-jvm" type="f1a62948:ProjectNode" />
                 <item name="spring-web-kotlin-blocking" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="application" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="lab-jvm" type="f1a62948:ProjectNode" />
+                <item name="spring-web-kotlin-blocking" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="verification" type="c8890929:TasksNode$1" />
               </path>
               <path>
@@ -78,9 +73,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JUnit5 Test Class" />
-        <option value="Kotlin Interface" />
         <option value="Kotlin File" />
         <option value="Kotlin Class" />
+        <option value="Kotlin Interface" />
       </list>
     </option>
   </component>
@@ -130,6 +125,7 @@
       <recent name="$PROJECT_DIR$/spring-web-kotlin-blocking/src/test/resources" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="kim.myeongjae" />
       <recent name="kim.myeongjae.spring_web_kotiln_blocking.article.domain.model" />
       <recent name="kim.myeongjae.spring_web_kotiln_blocking" />
     </key>
@@ -140,7 +136,7 @@
       <recent name="kim.myeongjae.spring_web_kotiln_blocking" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.ArticleControllerIntTest.getArticle">
+  <component name="RunManager" selected="Gradle.lab-jvm:spring-web-kotlin-blocking [bootRun]">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -215,7 +211,7 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="lab-jvm:spring-web-kotlin-blocking [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="lab-jvm:spring-web-kotlin-blocking [bootRun]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/spring-web-kotlin-blocking" />
@@ -226,7 +222,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="clean" />
+            <option value="bootRun" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -273,11 +269,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.lab-jvm:spring-web-kotlin-blocking [bootRun]" />
         <item itemvalue="Gradle.ArticleControllerIntTest.getArticle" />
         <item itemvalue="Gradle.ArticleRepositoryTest.saveAndFindById" />
         <item itemvalue="Gradle.lab-jvm:spring-web-kotlin-blocking [test]" />
         <item itemvalue="Gradle.ArticleRepositoryTest" />
-        <item itemvalue="Gradle.lab-jvm:spring-web-kotlin-blocking [clean]" />
       </list>
     </recent_temporary>
   </component>
@@ -291,7 +287,7 @@
       <updated>1613013704414</updated>
       <workItem from="1613013705657" duration="202000" />
       <workItem from="1613013929258" duration="4203000" />
-      <workItem from="1613021891315" duration="18621000" />
+      <workItem from="1613021891315" duration="19481000" />
     </task>
     <task id="LOCAL-00001" summary="add int test sourceSet">
       <created>1613024795339</created>
@@ -349,7 +345,21 @@
       <option name="project" value="LOCAL" />
       <updated>1613031988256</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="implement controller#get">
+      <created>1613059288771</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1613059288771</updated>
+    </task>
+    <task id="LOCAL-00010" summary="add json view">
+      <created>1613059941331</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1613059941331</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -372,7 +382,9 @@
     <MESSAGE value="add article model and repository." />
     <MESSAGE value="add article repository methods." />
     <MESSAGE value="update README.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="update README.md" />
+    <MESSAGE value="implement controller#get" />
+    <MESSAGE value="add json view" />
+    <option name="LAST_COMMIT_MESSAGE" value="add json view" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
