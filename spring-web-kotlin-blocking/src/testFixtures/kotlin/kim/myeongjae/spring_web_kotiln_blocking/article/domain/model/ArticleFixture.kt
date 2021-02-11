@@ -7,7 +7,7 @@ import java.time.ZonedDateTime
 class ArticleFixture {
     companion object {
         fun create(): Article {
-            val article = Article(title = "title", content = "content")
+            val article = Article(title = "title", content = "content", slug = "slug")
 
             ReflectionTestUtils.setField(article, "id", 1L)
             ReflectionTestUtils.setField(article, "createdAt", ZonedDateTime.now())

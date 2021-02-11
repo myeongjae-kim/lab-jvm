@@ -11,15 +11,17 @@ class ArticleTest {
         // given
         val title = "title"
         val content = "content"
+        val slug = "slug"
 
         // when
-        val article = Article(title = title, content = content)
+        val article = Article(title = title, content = content, slug = "slug")
 
         // then
         then(article).hasNoNullFieldsOrPropertiesExcept("id", "createdAt", "updatedAt")
         then(article.title).isEqualTo(title)
         then(article.content).isEqualTo(content)
         then(article.published).isEqualTo(false)
+        then(article.slug).isEqualTo(slug)
     }
 
     @Test

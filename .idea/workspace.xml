@@ -4,17 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6467f84d-7812-4dc9-8061-7e70475a10cf" name="Default Changelist" comment="rename test class">
-      <change afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/main/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/domain/model/Article.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/main/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/domain/model/ArticleRepository.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/test/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/domain/model/ArticleRepositoryTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/test/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/domain/model/ArticleTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/testFixtures/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/domain/model/ArticleFixture.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+    <list default="true" id="6467f84d-7812-4dc9-8061-7e70475a10cf" name="Default Changelist" comment="add article model and repository.">
+      <change afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/test/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/test/resources/data/test-article.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-web-kotlin-blocking/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/main/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/domain/model/Article.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/main/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/domain/model/Article.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/main/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/domain/model/ArticleRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/main/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/domain/model/ArticleRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/test/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/domain/model/ArticleRepositoryTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/test/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/domain/model/ArticleRepositoryTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/test/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/domain/model/ArticleTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/test/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/domain/model/ArticleTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/testFixtures/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/domain/model/ArticleFixture.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/testFixtures/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/domain/model/ArticleFixture.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,6 +110,9 @@
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/spring-web-kotlin-blocking/src/test/resources" />
+    </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
       <recent name="kim.myeongjae.spring_web_kotiln_blocking.article.domain.model" />
       <recent name="kim.myeongjae.spring_web_kotiln_blocking" />
@@ -123,7 +124,7 @@
       <recent name="kim.myeongjae.spring_web_kotiln_blocking" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.ArticleRepositoryTest.saveAndFindById">
+  <component name="RunManager" selected="Gradle.ArticleRepositoryTest">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -134,6 +135,90 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="ArticleRepositoryTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;kim.myeongjae.spring_web_kotiln_blocking.article.domain.model.ArticleRepositoryTest&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":spring-web-kotlin-blocking:test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ArticleRepositoryTest.findAllByPublishedTrue" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;kim.myeongjae.spring_web_kotiln_blocking.article.domain.model.ArticleRepositoryTest.findAllByPublishedTrue&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":spring-web-kotlin-blocking:test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ArticleRepositoryTest.findBySlugAndActivatedTrue_unpublishedArticle_articleNotFound" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;kim.myeongjae.spring_web_kotiln_blocking.article.domain.model.ArticleRepositoryTest.findBySlugAndActivatedTrue_unpublishedArticle_articleNotFound&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":spring-web-kotlin-blocking:test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ArticleRepositoryTest.findBySlug_unpublishedArticle_foundArticle" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;kim.myeongjae.spring_web_kotiln_blocking.article.domain.model.ArticleRepositoryTest.findBySlug_unpublishedArticle_foundArticle&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":spring-web-kotlin-blocking:test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
     </configuration>
     <configuration name="ArticleRepositoryTest.saveAndFindById" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -156,90 +241,6 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="ArticleTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;kim.myeongjae.spring_web_kotiln_blocking.article.domain.model.ArticleTest&quot;" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":spring-web-kotlin-blocking:test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="ArticleTest.create" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;kim.myeongjae.spring_web_kotiln_blocking.article.domain.model.ArticleTest.create&quot;" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":spring-web-kotlin-blocking:test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="SpringWebKotlinBlockingApplicationTest.contextLoads" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;kim.myeongjae.spring_web_kotiln_blocking.SpringWebKotlinBlockingApplicationTest.contextLoads&quot;" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":spring-web-kotlin-blocking:integrationTest" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="lab-jvm:spring-web-kotlin-blocking [check]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/spring-web-kotlin-blocking" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="check" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
     <configuration name="SpringWebKotlinBlockingApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="lab-jvm.spring-web-kotlin-blocking.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="kim.myeongjae.spring_web_kotiln_blocking.SpringWebKotlinBlockingApplication" />
@@ -256,11 +257,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.ArticleRepositoryTest" />
+        <item itemvalue="Gradle.ArticleRepositoryTest.findBySlugAndActivatedTrue_unpublishedArticle_articleNotFound" />
+        <item itemvalue="Gradle.ArticleRepositoryTest.findAllByPublishedTrue" />
+        <item itemvalue="Gradle.ArticleRepositoryTest.findBySlug_unpublishedArticle_foundArticle" />
         <item itemvalue="Gradle.ArticleRepositoryTest.saveAndFindById" />
-        <item itemvalue="Gradle.ArticleTest" />
-        <item itemvalue="Gradle.ArticleTest.create" />
-        <item itemvalue="Gradle.lab-jvm:spring-web-kotlin-blocking [check]" />
-        <item itemvalue="Gradle.SpringWebKotlinBlockingApplicationTest.contextLoads" />
       </list>
     </recent_temporary>
   </component>
@@ -274,7 +275,7 @@
       <updated>1613013704414</updated>
       <workItem from="1613013705657" duration="202000" />
       <workItem from="1613013929258" duration="4203000" />
-      <workItem from="1613021891315" duration="6764000" />
+      <workItem from="1613021891315" duration="8341000" />
     </task>
     <task id="LOCAL-00001" summary="add int test sourceSet">
       <created>1613024795339</created>
@@ -311,7 +312,14 @@
       <option name="project" value="LOCAL" />
       <updated>1613025764091</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="add article model and repository.">
+      <created>1613029326310</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1613029326310</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -331,15 +339,16 @@
     <MESSAGE value="add ktlint" />
     <MESSAGE value="update import settings" />
     <MESSAGE value="rename test class" />
-    <option name="LAST_COMMIT_MESSAGE" value="rename test class" />
+    <MESSAGE value="add article model and repository." />
+    <option name="LAST_COMMIT_MESSAGE" value="add article model and repository." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/spring-web-kotlin-blocking/src/test/kotlin/kim/myeongjae/spring_web_kotiln_blocking/article/domain/model/ArticleRepositoryTest.kt</url>
-          <line>23</line>
-          <option name="timeStamp" value="3" />
+          <line>53</line>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
