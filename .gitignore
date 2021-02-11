@@ -21,6 +21,8 @@ bin/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+.idea/workspace.xml
+.idea/sonarlint/
 
 ### NetBeans ###
 /nbproject/private/
