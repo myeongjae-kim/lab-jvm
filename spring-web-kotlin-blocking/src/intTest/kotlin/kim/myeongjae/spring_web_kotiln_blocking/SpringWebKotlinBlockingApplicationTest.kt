@@ -8,5 +8,6 @@ class SpringWebKotlinBlockingApplicationTest {
 
     @Test
     fun contextLoads() {
+        // Context test. If it succeeds, application has run well.
     }
 }

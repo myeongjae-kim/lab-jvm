@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6467f84d-7812-4dc9-8061-7e70475a10cf" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/main/kotlin/kim/myeongjae/spring_web_kotiln_blocking/SpringWebKotlinBlockingApplication.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/test/kotlin/kim/myeongjae/spring_web_kotiln_blocking/SpringWebKotlinBlockingApplicationTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/spring-web-kotlin-blocking/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/test/kotlin/kim/myeongjae/spring_web_kotiln_blocking/SpringWebKotlinBlockingApplicationTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/spring-web-kotlin-blocking/src/test/kotlin/kim/myeongjae/spring_web_kotiln_blocking/SpringWebKotlinBlockingApplicationTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +85,7 @@
       <recent name="kim.myeongjae.spring_web_kotiln_blocking" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.SpringWebKotlinBlockingApplicationTest.contextLoads">
+  <component name="RunManager" selected="Gradle.lab-jvm:spring-web-kotlin-blocking [check]">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -112,33 +108,12 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value=":spring-web-kotlin-blocking:test" />
+            <option value=":spring-web-kotlin-blocking:integrationTest" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
       <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="lab-jvm [bootRun]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--scan" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="bootRun" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
@@ -206,6 +181,27 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="lab-jvm:spring-web-kotlin-blocking [check]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/spring-web-kotlin-blocking" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="check" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
     <configuration name="SpringWebKotlinBlockingApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="lab-jvm.spring-web-kotlin-blocking.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="kim.myeongjae.spring_web_kotiln_blocking.SpringWebKotlinBlockingApplication" />
@@ -222,11 +218,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.lab-jvm:spring-web-kotlin-blocking [check]" />
+        <item itemvalue="Gradle.SpringWebKotlinBlockingApplicationTest.contextLoads" />
         <item itemvalue="Gradle.SpringWebKotlinBlockingApplicationTest.contextLoads" />
         <item itemvalue="Gradle.lab-jvm:spring-web-kotlin-blocking [bootJar]" />
         <item itemvalue="Gradle.lab-jvm:spring-web-kotlin-blocking [bootRun]" />
-        <item itemvalue="Gradle.lab-jvm [bootRun]" />
-        <item itemvalue="Gradle.SpringWebKotlinBlockingApplicationTest.contextLoads" />
       </list>
     </recent_temporary>
   </component>
@@ -240,7 +236,7 @@
       <updated>1613013704414</updated>
       <workItem from="1613013705657" duration="202000" />
       <workItem from="1613013929258" duration="4203000" />
-      <workItem from="1613021891315" duration="2476000" />
+      <workItem from="1613021891315" duration="2748000" />
     </task>
     <servers />
   </component>
