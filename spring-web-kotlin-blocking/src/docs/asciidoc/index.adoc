@@ -1,0 +1,16 @@
+= API docs sample
+Myeongjae Kim;
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+:docinfo:
+
+== Article
+
+=== Get Article External
+
+operation::articles/get-external[snippets='http-request,path-parameters,http-response,response-fields']
+
