@@ -2,12 +2,14 @@ package kim.myeongjae.spring_web_kotiln_blocking.article.api
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import kim.myeongjae.common.Constants
-import kim.myeongjae.spring_web_kotiln_blocking.article.api.dto.ArticleRequestDto
 import kim.myeongjae.spring_web_kotiln_blocking.article.api.dto.ArticleRequestDtoFixture
+import kim.myeongjae.spring_web_kotiln_blocking.article.domain.model.ArticleRepository
+import org.assertj.core.api.BDDAssertions
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
+import org.mockito.BDDMockito
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
@@ -26,7 +28,8 @@ import java.util.UUID
 @Transactional
 class ArticleControllerIntTest @Autowired constructor(
     val mvc: MockMvc,
-    val objectMapper: ObjectMapper
+    val objectMapper: ObjectMapper,
+    val articleRepository: ArticleRepository,
 ) {
 
     @Nested
@@ -81,6 +84,8 @@ class ArticleControllerIntTest @Autowired constructor(
             )
                 .andExpect(MockMvcResultMatchers.status().isOk)
                 .andExpect(MockMvcResultMatchers.jsonPath("$").doesNotExist())
+
+            BDDAssertions.then(articleRepository.findBySlug(slug).published).isFalse
         }
     }
 }

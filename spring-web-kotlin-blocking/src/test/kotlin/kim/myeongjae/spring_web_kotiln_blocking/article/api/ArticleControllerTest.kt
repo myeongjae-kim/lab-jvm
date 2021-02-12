@@ -111,13 +111,14 @@ class ArticleControllerTest @Autowired constructor(
             // given
             val slug = "slug"
             val req = ArticleRequestDtoFixture.create()
+            val body = objectMapper.writeValueAsString(req)
 
             // when
             mvc.perform(
                 RestDocumentationRequestBuilders.post("/articles/{slug}", slug)
                     .header(Constants.HEADER_INTERNAL, "")
                     .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsBytes(req))
+                    .content(body)
             )
                 .andExpect(MockMvcResultMatchers.status().isOk)
                 .andDo(MockMvcResultHandlers.print())
