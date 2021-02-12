@@ -1,5 +1,12 @@
 plugins {
     kotlin("plugin.jpa")
+    kotlin("plugin.allopen")
+}
+
+allOpen {
+    annotation("javax.persistence.Entity")
+    annotation("javax.persistence.Embeddable")
+    annotation("javax.persistence.MappedSuperclass")
 }
 
 dependencies {

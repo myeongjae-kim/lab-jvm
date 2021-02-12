@@ -18,16 +18,16 @@ class Article(
     slug: String,
 ) {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null; private set
+    var id: Long? = null; protected set
     @CreationTimestamp
-    var createdAt: ZonedDateTime? = null; private set
+    var createdAt: ZonedDateTime? = null; protected set
     @UpdateTimestamp
-    var updatedAt: ZonedDateTime? = null; private set
+    var updatedAt: ZonedDateTime? = null; protected set
 
-    var title: String = title; private set
-    var content: String = content; private set
-    var slug: String = slug; private set
-    var published = false; private set
+    var title: String = title; protected set
+    var content: String = content; protected set
+    var slug: String = slug; protected set
+    var published = false; protected set
 
     fun publish() {
         published = true

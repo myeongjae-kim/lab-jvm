@@ -6,11 +6,12 @@ plugins {
     id("org.springframework.boot") version "2.4.2"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
-    id("org.asciidoctor.convert") version "1.5.9.2"
+    id("org.asciidoctor.convert") version "2.4.0"
 
-    kotlin("jvm") version "1.4.21"
-    kotlin("plugin.spring") version "1.4.21"
-    kotlin("plugin.jpa") version "1.4.21"
+    kotlin("jvm") version "1.4.30"
+    kotlin("plugin.spring") version "1.4.30"
+    kotlin("plugin.jpa") version "1.4.30"
+    kotlin("plugin.allopen") version "1.4.30"
 }
 
 group = "kim.myeongjae"
