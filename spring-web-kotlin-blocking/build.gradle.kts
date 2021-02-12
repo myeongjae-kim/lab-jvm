@@ -17,4 +17,6 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     runtimeOnly("com.h2database:h2")
     runtimeOnly("mysql:mysql-connector-java")
+
+    testFixturesImplementation("org.springframework.boot:spring-boot-starter-web")
 }

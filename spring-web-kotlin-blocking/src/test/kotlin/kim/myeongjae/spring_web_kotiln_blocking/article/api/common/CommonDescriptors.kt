@@ -1,12 +1,10 @@
 package kim.myeongjae.spring_web_kotiln_blocking.article.api.common
 
-import org.springframework.restdocs.headers.HeaderDocumentation
-import org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath
-
 import org.springframework.restdocs.constraints.ConstraintDescriptions
+import org.springframework.restdocs.headers.HeaderDocumentation
 import org.springframework.restdocs.payload.FieldDescriptor
+import org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath
 import org.springframework.restdocs.snippet.Attributes
-
 
 class CommonDescriptors {
     companion object {
@@ -19,6 +17,5 @@ class CommonDescriptors {
         fun withPath(path: String): FieldDescriptor = fieldWithPath(path).attributes(
             Attributes.key("constraints").value(constraintDescriptions.descriptionsForProperty(path).joinToString(". "))
         )
-
     }
 }

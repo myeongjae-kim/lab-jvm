@@ -61,7 +61,6 @@ class ArticleTest {
         }
     }
 
-
     @Nested
     inner class Update {
         @Test
