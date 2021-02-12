@@ -10,7 +10,11 @@ Myeongjae Kim;
 
 == Article
 
-=== Get Article External
+=== Get a published article
 
-operation::articles/get-external[snippets='http-request,path-parameters,http-response,response-fields']
+operation::articles/get-published[snippets='http-request,path-parameters,http-response,response-fields']
+
+=== Get an article
+
+operation::articles/get[snippets='http-request,request-headers,path-parameters,http-response,response-fields']
 

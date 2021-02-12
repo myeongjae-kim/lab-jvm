@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     `java-test-fixtures`
+    jacoco
 
     id("org.springframework.boot") version "2.4.2"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
@@ -33,6 +34,7 @@ tasks.ktlintCheck {
 subprojects {
     apply(plugin = "org.jetbrains.kotlin.jvm")
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
+    apply(plugin = "org.gradle.jacoco")
 
     tasks.withType<KotlinCompile> {
         kotlinOptions {
@@ -57,6 +59,37 @@ subprojects {
             tasks.ktlintTestFixturesSourceSetCheck
         )
         setDependsOn(dependsOn.filter { !excludedTasks.contains(it) })
+    }
+    // ////////////////////////////
+
+    // ////////// jacoco //////////
+    tasks.test {
+        finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
+    }
+    tasks.jacocoTestReport {
+        dependsOn(tasks.test) // tests are required to run before generating the report
+    }
+
+    val jacocoExcludePatterns = listOf("**/*ApplicationKt.class", "**/Constants.class")
+
+    tasks.withType<JacocoCoverageVerification> {
+        afterEvaluate {
+            classDirectories.setFrom(files(classDirectories.files.map {
+                fileTree(it).apply {
+                    exclude(jacocoExcludePatterns)
+                }
+            }))
+        }
+    }
+
+    tasks.withType<JacocoReport> {
+        afterEvaluate {
+            classDirectories.setFrom(files(classDirectories.files.map {
+                fileTree(it).apply {
+                    exclude(jacocoExcludePatterns)
+                }
+            }))
+        }
     }
     // ////////////////////////////
 
