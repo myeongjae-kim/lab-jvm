@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers
 import org.mockito.BDDMockito
-import org.mockito.Mockito
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
@@ -28,7 +27,6 @@ import org.springframework.restdocs.payload.PayloadDocumentation
 import org.springframework.restdocs.request.RequestDocumentation
 import org.springframework.test.util.ReflectionTestUtils
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 
@@ -147,6 +145,25 @@ class ArticleControllerTest @Autowired constructor(
                 }
             )
         }
+
+        @Test
+        fun `should respond bad request when title is empty`() {
+            // given
+            val slug = "slug"
+            val req = ArticleRequestDtoFixture.create()
+            ReflectionTestUtils.setField(req, "title", "")
+            val body = objectMapper.writeValueAsString(req)
+
+            // when
+            mvc.perform(
+                RestDocumentationRequestBuilders.post("/articles/{slug}", slug)
+                    .headers(RequestHeaderFixture.create())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(body)
+            )
+                .andExpect(MockMvcResultMatchers.status().isBadRequest)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("title must not be blank"))
+        }
     }
 
     @Nested
@@ -253,6 +270,82 @@ class ArticleControllerTest @Autowired constructor(
                         PayloadDocumentation.responseFields(CommonDescriptors.pageOf(ArticleControllerDescriptors.listResponseFields)),
                     )
                 )
+        }
+    }
+
+    @Nested
+    inner class PublishArticle {
+        @Test
+        fun `should respond ok`() {
+            // given
+            val slug = "slug"
+            val article = ArticleFixture.create()
+
+            BDDMockito.given(articleRepository.findBySlug(ArgumentMatchers.matches(slug))).willReturn(article)
+
+            // when
+            mvc.perform(
+                RestDocumentationRequestBuilders.put("/articles/{slug}/publish", slug)
+                    .headers(RequestHeaderFixture.create())
+            )
+                .andExpect(MockMvcResultMatchers.status().isOk)
+                .andDo(MockMvcResultHandlers.print())
+                .andDo(
+                    MockMvcRestDocumentation.document(
+                        "articles/publish",
+                        Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
+                        Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
+                        HeaderDocumentation.requestHeaders(CommonDescriptors.internalHeaderDescriptor),
+                        RequestDocumentation.pathParameters(
+                            RequestDocumentation.parameterWithName("slug").description("슬러그")
+                        ),
+                    )
+                )
+
+            // then
+            BDDMockito.verify(articleRepository).save(
+                ArgumentMatchers.argThat {
+                    it.slug == slug && it.published
+                }
+            )
+        }
+    }
+
+    @Nested
+    inner class UnpublishArticle {
+        @Test
+        fun `should respond ok`() {
+            // given
+            val slug = "slug"
+            val article = ArticleFixture.create()
+
+            BDDMockito.given(articleRepository.findBySlug(ArgumentMatchers.matches(slug))).willReturn(article)
+
+            // when
+            mvc.perform(
+                RestDocumentationRequestBuilders.put("/articles/{slug}/unpublish", slug)
+                    .headers(RequestHeaderFixture.create())
+            )
+                .andExpect(MockMvcResultMatchers.status().isOk)
+                .andDo(MockMvcResultHandlers.print())
+                .andDo(
+                    MockMvcRestDocumentation.document(
+                        "articles/unpublish",
+                        Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
+                        Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
+                        HeaderDocumentation.requestHeaders(CommonDescriptors.internalHeaderDescriptor),
+                        RequestDocumentation.pathParameters(
+                            RequestDocumentation.parameterWithName("slug").description("슬러그")
+                        ),
+                    )
+                )
+
+            // then
+            BDDMockito.verify(articleRepository).save(
+                ArgumentMatchers.argThat {
+                    it.slug == slug && !it.published
+                }
+            )
         }
     }
 }
