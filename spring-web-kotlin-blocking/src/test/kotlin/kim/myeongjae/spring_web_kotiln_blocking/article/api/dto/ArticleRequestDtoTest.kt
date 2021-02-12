@@ -24,14 +24,15 @@ class ArticleRequestDtoTest {
         then(article.title).isEqualTo(dto.title)
         then(article.content).isEqualTo(dto.content)
         then(article.slug).isEqualTo(slug)
-
     }
 
     @ParameterizedTest
-    @CsvSource(value = [
-        "title,'',1",
-        "content,'',1",
-    ])
+    @CsvSource(
+        value = [
+            "title,'',1",
+            "content,'',1",
+        ]
+    )
     fun validate_invalidInput_violation(fieldName: String, value: Any?, numberOfViolations: Int) {
         val dto = ArticleRequestDtoFixture.create()
         ReflectionTestUtils.setField(dto, fieldName, value)
