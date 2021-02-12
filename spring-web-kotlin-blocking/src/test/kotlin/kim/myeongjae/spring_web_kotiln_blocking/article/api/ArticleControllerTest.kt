@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
+import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.restdocs.headers.HeaderDocumentation
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders
@@ -53,11 +54,22 @@ class ArticleControllerTest @Autowired constructor(
                     )
                 )
         }
+
+        @Test
+        fun `should respond not found when the requested article is not published`() {
+            // given
+            val slug = "slug"
+            BDDMockito.given(articleRepository.findBySlugAndPublishedTrue(ArgumentMatchers.matches(slug)))
+                .will { throw EmptyResultDataAccessException(0) }
+
+            // then
+            mvc.perform(RestDocumentationRequestBuilders.get("/articles/{slug}", slug))
+                .andExpect(MockMvcResultMatchers.status().isNotFound)
+        }
     }
 
     @Nested
     inner class GetArticle {
-
         @Test
         fun `should respond ok`() {
             // given
