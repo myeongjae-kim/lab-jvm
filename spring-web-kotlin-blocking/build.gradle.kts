@@ -2,6 +2,8 @@ plugins {
     `java-test-fixtures`
     kotlin("plugin.spring")
     kotlin("plugin.jpa")
+
+    id("org.asciidoctor.convert")
 }
 
 sourceSets {
@@ -13,6 +15,26 @@ sourceSets {
     testFixtures.get().runtimeClasspath += sourceSets.main.get().output
 }
 
+///////// spring restdocs ///////////
+val snippetsDir = file("build/generated-snippets")
+
+tasks.test {
+    outputs.dir(snippetsDir)
+}
+
+tasks.asciidoctor {
+    inputs.dir(snippetsDir)
+    dependsOn(tasks.test)
+}
+
+tasks.bootJar {
+    dependsOn(tasks.asciidoctor)
+    from("${tasks.asciidoctor.get().outputDir}/html5") {
+        into("static/docs")
+    }
+}
+/////////////////////////////////////
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -21,4 +43,8 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     runtimeOnly("com.h2database:h2:1.4.199")
     runtimeOnly("mysql:mysql-connector-java")
+
+    asciidoctor("org.springframework.restdocs:spring-restdocs-asciidoctor")
+    testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
+
 }

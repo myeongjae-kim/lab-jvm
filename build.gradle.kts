@@ -6,6 +6,7 @@ plugins {
     id("org.springframework.boot") version "2.4.2"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
+    id("org.asciidoctor.convert") version "1.5.9.2"
 
     kotlin("jvm") version "1.4.21"
     kotlin("plugin.spring") version "1.4.21"
@@ -39,6 +40,7 @@ subprojects {
         }
     }
 
+    ////////// ktlint //////////
     tasks.ktlintFormat {
         group = "verification"
     }
@@ -55,6 +57,7 @@ subprojects {
         )
         setDependsOn(dependsOn.filter { !excludedTasks.contains(it) })
     }
+    ////////////////////////////
 
     repositories {
         mavenCentral()
@@ -68,6 +71,11 @@ configure(springProjects) {
     apply(plugin = "org.jetbrains.kotlin.plugin.spring")
     apply(plugin = "org.gradle.java-test-fixtures")
 
+    tasks.withType<Test> {
+        useJUnitPlatform()
+    }
+
+    ///////// intTest sourceSet ///////////
     sourceSets {
         create("intTest") {
             compileClasspath += sourceSets.main.get().output
@@ -84,9 +92,6 @@ configure(springProjects) {
 
     configurations["intTestRuntimeOnly"].extendsFrom(configurations.runtimeOnly.get())
 
-    tasks.withType<Test> {
-        useJUnitPlatform()
-    }
 
     val integrationTest = task<Test>("integrationTest") {
         description = "Runs integration tests."
@@ -100,6 +105,7 @@ configure(springProjects) {
     tasks.check {
         dependsOn(tasks.ktlintFormat, integrationTest)
     }
+    ///////////////////////////////////////
 
     dependencies {
         implementation("org.jetbrains.kotlin:kotlin-reflect")
