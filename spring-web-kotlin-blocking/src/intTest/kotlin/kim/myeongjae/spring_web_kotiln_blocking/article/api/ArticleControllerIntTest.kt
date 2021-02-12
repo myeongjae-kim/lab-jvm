@@ -1,6 +1,9 @@
 package kim.myeongjae.spring_web_kotiln_blocking.article.api
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import kim.myeongjae.common.Constants
+import kim.myeongjae.spring_web_kotiln_blocking.article.api.dto.ArticleRequestDto
+import kim.myeongjae.spring_web_kotiln_blocking.article.api.dto.ArticleRequestDtoFixture
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -8,18 +11,23 @@ import org.junit.jupiter.params.provider.CsvSource
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.http.MediaType
 import org.springframework.test.context.jdbc.Sql
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.transaction.annotation.Transactional
+import java.util.UUID
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @Sql("/data/test-article.sql")
 @Transactional
-class ArticleControllerIntTest @Autowired constructor(val mvc: MockMvc) {
+class ArticleControllerIntTest @Autowired constructor(
+    val mvc: MockMvc,
+    val objectMapper: ObjectMapper
+) {
 
     @Nested
     inner class GetPublishedArticle {
@@ -56,6 +64,23 @@ class ArticleControllerIntTest @Autowired constructor(val mvc: MockMvc) {
             mvc.perform(MockMvcRequestBuilders.get("/articles/$slug").header(Constants.HEADER_INTERNAL, ""))
                 .andExpect(MockMvcResultMatchers.status().isOk)
                 .andExpect(MockMvcResultMatchers.jsonPath("$.published").value(published))
+        }
+    }
+
+    @Nested
+    inner class CreateArticle {
+        @Test
+        fun `should pass`() {
+            val req = ArticleRequestDtoFixture.create()
+            val slug = UUID.randomUUID().toString()
+
+            mvc.perform(MockMvcRequestBuilders.post("/articles/$slug")
+                .header(Constants.HEADER_INTERNAL, "")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsBytes(req))
+            )
+                .andExpect(MockMvcResultMatchers.status().isOk)
+                .andExpect(MockMvcResultMatchers.jsonPath("$").doesNotExist())
         }
     }
 }

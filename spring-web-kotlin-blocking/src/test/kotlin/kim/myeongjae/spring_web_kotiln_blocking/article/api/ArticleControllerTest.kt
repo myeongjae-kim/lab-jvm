@@ -1,7 +1,9 @@
 package kim.myeongjae.spring_web_kotiln_blocking.article.api
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import kim.myeongjae.common.Constants
 import kim.myeongjae.spring_web_kotiln_blocking.article.api.common.CommonDescriptors
+import kim.myeongjae.spring_web_kotiln_blocking.article.api.dto.ArticleRequestDtoFixture
 import kim.myeongjae.spring_web_kotiln_blocking.article.domain.model.ArticleFixture
 import kim.myeongjae.spring_web_kotiln_blocking.article.domain.model.ArticleRepository
 import org.junit.jupiter.api.Nested
@@ -13,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.dao.EmptyResultDataAccessException
+import org.springframework.http.MediaType
 import org.springframework.restdocs.headers.HeaderDocumentation
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders
@@ -27,6 +30,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 @AutoConfigureRestDocs
 class ArticleControllerTest @Autowired constructor(
     private val mvc: MockMvc,
+    private val objectMapper: ObjectMapper
 ) {
     @MockBean lateinit var articleRepository: ArticleRepository
 
@@ -96,6 +100,44 @@ class ArticleControllerTest @Autowired constructor(
                         PayloadDocumentation.responseFields(ArticleControllerDescriptors.responseFields),
                     )
                 )
+        }
+    }
+
+
+    @Nested
+    inner class CreateArticle {
+        @Test
+        fun `should respond ok`() {
+            // given
+            val slug = "slug"
+            val req = ArticleRequestDtoFixture.create()
+
+            // when
+            mvc.perform(
+                RestDocumentationRequestBuilders.post("/articles/{slug}", slug)
+                    .header(Constants.HEADER_INTERNAL, "")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsBytes(req))
+            )
+                .andExpect(MockMvcResultMatchers.status().isOk)
+                .andDo(MockMvcResultHandlers.print())
+                .andDo(
+                    MockMvcRestDocumentation.document(
+                        "articles/create",
+                        Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
+                        Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
+                        HeaderDocumentation.requestHeaders(CommonDescriptors.internalHeaderDescriptor),
+                        RequestDocumentation.pathParameters(
+                            RequestDocumentation.parameterWithName("slug").description("슬러그")
+                        ),
+                        PayloadDocumentation.requestFields(ArticleControllerDescriptors.requestFields)
+                    )
+                )
+
+            // then
+            BDDMockito.verify(articleRepository).save(ArgumentMatchers.argThat {
+                it.slug == slug && it.title == req.title && it.content == req.content
+            })
         }
     }
 }

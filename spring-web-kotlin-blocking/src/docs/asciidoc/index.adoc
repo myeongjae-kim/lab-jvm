@@ -18,3 +18,7 @@ operation::articles/get-published[snippets='http-request,path-parameters,http-re
 
 operation::articles/get[snippets='http-request,request-headers,path-parameters,http-response,response-fields']
 
+=== Create an article
+
+operation::articles/create[snippets='http-request,request-headers,path-parameters,request-fields,http-response']
+

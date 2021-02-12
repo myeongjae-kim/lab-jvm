@@ -5,13 +5,17 @@ import org.springframework.restdocs.payload.PayloadDocumentation
 
 class ArticleControllerDescriptors {
     companion object {
+        val requestFields: List<FieldDescriptor>
         val responseFieldsExternal: List<FieldDescriptor>
         val responseFields: List<FieldDescriptor>
 
         init {
-            responseFieldsExternal = listOf(
+            requestFields = listOf(
                 PayloadDocumentation.fieldWithPath("title").description("제목"),
                 PayloadDocumentation.fieldWithPath("content").description("내용"),
+            )
+
+            responseFieldsExternal = requestFields + listOf(
                 PayloadDocumentation.fieldWithPath("createdAt").description("생성일시"),
                 PayloadDocumentation.fieldWithPath("updatedAt").description("갱신일시")
             )
