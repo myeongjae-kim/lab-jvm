@@ -1,23 +1,17 @@
 package kim.myeongjae.spring_web_kotiln_blocking.article.api
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import kim.myeongjae.common.Constants
 import kim.myeongjae.common.api.RequestHeaderFixture
 import kim.myeongjae.spring_web_kotiln_blocking.article.api.dto.ArticleRequestDtoFixture
-import kim.myeongjae.spring_web_kotiln_blocking.article.domain.model.ArticleFixture
 import kim.myeongjae.spring_web_kotiln_blocking.article.domain.model.ArticleRepository
 import org.assertj.core.api.BDDAssertions
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
-import org.mockito.ArgumentMatchers
-import org.mockito.BDDMockito
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.data.domain.PageImpl
-import org.springframework.data.domain.Pageable
 import org.springframework.http.MediaType
 import org.springframework.test.context.jdbc.Sql
 import org.springframework.test.util.ReflectionTestUtils
@@ -143,6 +137,42 @@ class ArticleControllerIntTest @Autowired constructor(
                 .headers(RequestHeaderFixture.create()))
                 .andExpect(MockMvcResultMatchers.status().isOk)
                 .andExpect(MockMvcResultMatchers.jsonPath("$.content.length()").value(2))
+        }
+    }
+
+    @Nested
+    inner class Publish {
+        @Test
+        fun `should pass`() {
+            val slug = "slug2"
+
+            val savedArticle = articleRepository.findBySlug(slug)
+            BDDAssertions.assertThat(savedArticle.published).isFalse
+
+            mvc.perform(MockMvcRequestBuilders.put("/articles/$slug/publish")
+                .headers(RequestHeaderFixture.create()))
+                .andExpect(MockMvcResultMatchers.status().isOk)
+                .andExpect(MockMvcResultMatchers.jsonPath("$").doesNotExist())
+
+            BDDAssertions.then(savedArticle.published).isTrue
+        }
+    }
+
+    @Nested
+    inner class Unpublish {
+        @Test
+        fun `should pass`() {
+            val slug = "slug1"
+
+            val savedArticle = articleRepository.findBySlug(slug)
+            BDDAssertions.assertThat(savedArticle.published).isTrue
+
+            mvc.perform(MockMvcRequestBuilders.put("/articles/$slug/unpublish")
+                .headers(RequestHeaderFixture.create()))
+                .andExpect(MockMvcResultMatchers.status().isOk)
+                .andExpect(MockMvcResultMatchers.jsonPath("$").doesNotExist())
+
+            BDDAssertions.then(savedArticle.published).isFalse
         }
     }
 }

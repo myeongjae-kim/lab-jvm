@@ -59,4 +59,22 @@ class ArticleController @Autowired constructor(private val articleRepository: Ar
     fun getArticles(@RequestParam page: Int): Page<ArticleListResponseDto> =
         articleRepository.findAll(PageRequest.of(page, Constants.PAGE_SIZE))
             .map(ArticleListResponseDto::from)
+
+    @PutMapping(path = ["/{slug}/publish"], headers = [Constants.HEADER_INTERNAL])
+    @Transactional
+    fun publish(@PathVariable slug: String) {
+        val article = articleRepository.findBySlug(slug)
+        article.publish()
+
+        articleRepository.save(article)
+    }
+
+    @PutMapping(path = ["/{slug}/unpublish"], headers = [Constants.HEADER_INTERNAL])
+    @Transactional
+    fun unpublish(@PathVariable slug: String) {
+        val article = articleRepository.findBySlug(slug)
+        article.unpublish()
+
+        articleRepository.save(article)
+    }
 }
