@@ -1,6 +1,7 @@
 package kim.myeongjae.spring_web_kotiln_blocking.article.api
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import kim.myeongjae.common.Constants
 import kim.myeongjae.common.api.RequestHeaderFixture
 import kim.myeongjae.spring_web_kotiln_blocking.article.api.common.CommonDescriptors
 import kim.myeongjae.spring_web_kotiln_blocking.article.api.dto.ArticleRequestDtoFixture
@@ -10,11 +11,14 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers
 import org.mockito.BDDMockito
+import org.mockito.Mockito
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.dao.EmptyResultDataAccessException
+import org.springframework.data.domain.PageImpl
+import org.springframework.data.domain.Pageable
 import org.springframework.http.MediaType
 import org.springframework.restdocs.headers.HeaderDocumentation
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation
@@ -24,6 +28,7 @@ import org.springframework.restdocs.payload.PayloadDocumentation
 import org.springframework.restdocs.request.RequestDocumentation
 import org.springframework.test.util.ReflectionTestUtils
 import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 
@@ -188,6 +193,66 @@ class ArticleControllerTest @Autowired constructor(
                     it.slug == slug && it.title == req.title && it.content == req.content
                 }
             )
+        }
+    }
+
+    @Nested
+    inner class GetPublishedArticles {
+        @Test
+        fun `should pass`() {
+            val pageNo = 0
+            val page = PageImpl((1..3).map { ArticleFixture.create() })
+
+            BDDMockito.given(articleRepository.findAllByPublishedTrue(ArgumentMatchers.argThat<Pageable>{
+                it.pageNumber == pageNo && it.pageSize == Constants.PAGE_SIZE
+            })).willReturn(page)
+
+            mvc.perform(RestDocumentationRequestBuilders.get("/articles?page={page}", pageNo))
+                .andExpect(MockMvcResultMatchers.status().isOk)
+                .andDo(MockMvcResultHandlers.print())
+                .andDo(
+                    MockMvcRestDocumentation.document(
+                        "articles/get-published-articles",
+                        Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
+                        Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
+                        RequestDocumentation.requestParameters(RequestDocumentation.parameterWithName("page").description("페이지 번호. Zero based")),
+                        PayloadDocumentation.responseFields(CommonDescriptors.pageOf(ArticleControllerDescriptors.listResponseFields)),
+                    )
+                )
+        }
+    }
+
+    @Nested
+    inner class GetArticles {
+        @Test
+        fun `should respond ok`() {
+            val pageNo = 0
+            val page = PageImpl((1..3).map {
+                val article = ArticleFixture.create()
+                article.unpublish()
+                article
+            })
+
+            BDDMockito.given(articleRepository.findAll(ArgumentMatchers.argThat<Pageable> {
+                it.pageNumber == pageNo && it.pageSize == Constants.PAGE_SIZE
+            }))
+                .willReturn(page)
+
+            mvc.perform(
+                RestDocumentationRequestBuilders.get("/articles?page={page}", 0).headers(RequestHeaderFixture.create())
+            )
+                .andExpect(MockMvcResultMatchers.status().isOk)
+                .andDo(MockMvcResultHandlers.print())
+                .andDo(
+                    MockMvcRestDocumentation.document(
+                        "articles/get-articles",
+                        Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
+                        Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
+                        HeaderDocumentation.requestHeaders(CommonDescriptors.internalHeaderDescriptor),
+                        RequestDocumentation.requestParameters(RequestDocumentation.parameterWithName("page").description("페이지 번호. Zero based")),
+                        PayloadDocumentation.responseFields(CommonDescriptors.pageOf(ArticleControllerDescriptors.listResponseFields)),
+                    )
+                )
         }
     }
 }

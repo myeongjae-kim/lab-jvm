@@ -1,17 +1,23 @@
 package kim.myeongjae.spring_web_kotiln_blocking.article.api
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import kim.myeongjae.common.Constants
 import kim.myeongjae.common.api.RequestHeaderFixture
 import kim.myeongjae.spring_web_kotiln_blocking.article.api.dto.ArticleRequestDtoFixture
+import kim.myeongjae.spring_web_kotiln_blocking.article.domain.model.ArticleFixture
 import kim.myeongjae.spring_web_kotiln_blocking.article.domain.model.ArticleRepository
 import org.assertj.core.api.BDDAssertions
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
+import org.mockito.ArgumentMatchers
+import org.mockito.BDDMockito
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.data.domain.PageImpl
+import org.springframework.data.domain.Pageable
 import org.springframework.http.MediaType
 import org.springframework.test.context.jdbc.Sql
 import org.springframework.test.util.ReflectionTestUtils
@@ -115,6 +121,28 @@ class ArticleControllerIntTest @Autowired constructor(
 
             BDDAssertions.then(savedArticle.title).isEqualTo(req.title)
             BDDAssertions.then(savedArticle.content).isEqualTo(req.content)
+        }
+    }
+
+    @Nested
+    inner class GetPublishedArticles {
+        @Test
+        fun `should pass`() {
+            mvc.perform(MockMvcRequestBuilders.get("/articles?page={page}", 0))
+                .andExpect(MockMvcResultMatchers.status().isOk)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content").isArray)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content.length()").value(1))
+        }
+    }
+
+    @Nested
+    inner class GetArticles {
+        @Test
+        fun `should pass`() {
+            mvc.perform(MockMvcRequestBuilders.get("/articles?page={page}", 0)
+                .headers(RequestHeaderFixture.create()))
+                .andExpect(MockMvcResultMatchers.status().isOk)
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content.length()").value(2))
         }
     }
 }
