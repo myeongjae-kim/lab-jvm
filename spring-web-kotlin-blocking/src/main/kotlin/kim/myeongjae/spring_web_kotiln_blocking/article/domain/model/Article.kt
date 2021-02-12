@@ -36,4 +36,9 @@ class Article(
     fun unpublish() {
         published = false
     }
+
+    fun update(dto: Article) {
+        this.title = dto.title
+        this.content = dto.content
+    }
 }
