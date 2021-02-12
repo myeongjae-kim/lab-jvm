@@ -40,7 +40,7 @@ subprojects {
         }
     }
 
-    ////////// ktlint //////////
+    // ////////// ktlint //////////
     tasks.ktlintFormat {
         group = "verification"
     }
@@ -57,13 +57,14 @@ subprojects {
         )
         setDependsOn(dependsOn.filter { !excludedTasks.contains(it) })
     }
-    ////////////////////////////
+    // ////////////////////////////
 
     repositories {
         mavenCentral()
     }
 }
 
+// ///////// spring projects common configuration ///////////
 val springProjects = listOf(project(":spring-web-kotlin-blocking"))
 configure(springProjects) {
     apply(plugin = "org.springframework.boot")
@@ -75,7 +76,7 @@ configure(springProjects) {
         useJUnitPlatform()
     }
 
-    ///////// intTest sourceSet ///////////
+    // ///////// intTest sourceSet ///////////
     sourceSets {
         create("intTest") {
             compileClasspath += sourceSets.main.get().output
@@ -92,7 +93,6 @@ configure(springProjects) {
 
     configurations["intTestRuntimeOnly"].extendsFrom(configurations.runtimeOnly.get())
 
-
     val integrationTest = task<Test>("integrationTest") {
         description = "Runs integration tests."
         group = "verification"
@@ -105,7 +105,7 @@ configure(springProjects) {
     tasks.check {
         dependsOn(tasks.ktlintFormat, integrationTest)
     }
-    ///////////////////////////////////////
+    // ///////////////////////////////////////
 
     dependencies {
         implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -117,3 +117,45 @@ configure(springProjects) {
         intTestImplementation("org.springframework.boot:spring-boot-starter-test")
     }
 }
+// //////////////////////////////////////////////////////////
+
+// ///////// spring api projects common configuration ///////////
+val springApiProjects = listOf(project(":spring-web-kotlin-blocking"))
+configure(springApiProjects) {
+    apply(plugin = "org.asciidoctor.convert")
+
+    sourceSets {
+        // 이 설정이 없으면 test sourceSet에서 main을 인식하지 못한다. 원래 자동으로 해야하는데.. 왜지?
+        test.get().compileClasspath += sourceSets.main.get().output
+        test.get().runtimeClasspath += sourceSets.main.get().output
+
+        testFixtures.get().compileClasspath += sourceSets.main.get().output
+        testFixtures.get().runtimeClasspath += sourceSets.main.get().output
+    }
+
+    // ///////// spring restdocs ///////////
+    val snippetsDir = file("build/generated-snippets")
+
+    tasks.test {
+        outputs.dir(snippetsDir)
+    }
+
+    tasks.asciidoctor {
+        inputs.dir(snippetsDir)
+        dependsOn(tasks.test)
+    }
+
+    tasks.bootJar {
+        dependsOn(tasks.asciidoctor)
+        from("${tasks.asciidoctor.get().outputDir}/html5") {
+            into("static/docs")
+        }
+    }
+    // /////////////////////////////////////
+
+    dependencies {
+        asciidoctor("org.springframework.restdocs:spring-restdocs-asciidoctor")
+        testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
+    }
+}
+// //////////////////////////////////////////////////////////////
