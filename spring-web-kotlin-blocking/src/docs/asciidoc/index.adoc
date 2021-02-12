@@ -26,3 +26,10 @@ operation::articles/create[snippets='http-request,request-headers,path-parameter
 
 operation::articles/update[snippets='http-request,request-headers,path-parameters,request-fields,http-response']
 
+=== Get published articles
+
+operation::articles/get-published-articles[snippets='http-request,request-parameters,http-response,response-fields']
+
+=== Get articles
+
+operation::articles/get-articles[snippets='http-request,request-headers,request-parameters,http-response,response-fields']
