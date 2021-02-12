@@ -22,3 +22,7 @@ operation::articles/get[snippets='http-request,request-headers,path-parameters,h
 
 operation::articles/create[snippets='http-request,request-headers,path-parameters,request-fields,http-response']
 
+=== Update an article
+
+operation::articles/update[snippets='http-request,request-headers,path-parameters,request-fields,http-response']
+

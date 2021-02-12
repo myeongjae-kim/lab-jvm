@@ -1,7 +1,7 @@
 package kim.myeongjae.spring_web_kotiln_blocking.article.api
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import kim.myeongjae.common.Constants
+import kim.myeongjae.common.api.RequestHeaderFixture
 import kim.myeongjae.spring_web_kotiln_blocking.article.api.common.CommonDescriptors
 import kim.myeongjae.spring_web_kotiln_blocking.article.api.dto.ArticleRequestDtoFixture
 import kim.myeongjae.spring_web_kotiln_blocking.article.domain.model.ArticleFixture
@@ -22,6 +22,7 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders
 import org.springframework.restdocs.operation.preprocess.Preprocessors
 import org.springframework.restdocs.payload.PayloadDocumentation
 import org.springframework.restdocs.request.RequestDocumentation
+import org.springframework.test.util.ReflectionTestUtils
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
@@ -84,7 +85,7 @@ class ArticleControllerTest @Autowired constructor(
                 .willReturn(article)
 
             mvc.perform(
-                RestDocumentationRequestBuilders.get("/articles/{slug}", slug).header(Constants.HEADER_INTERNAL, "")
+                RestDocumentationRequestBuilders.get("/articles/{slug}", slug).headers(RequestHeaderFixture.create())
             )
                 .andExpect(MockMvcResultMatchers.status().isOk)
                 .andDo(MockMvcResultHandlers.print())
@@ -103,7 +104,6 @@ class ArticleControllerTest @Autowired constructor(
         }
     }
 
-
     @Nested
     inner class CreateArticle {
         @Test
@@ -116,7 +116,7 @@ class ArticleControllerTest @Autowired constructor(
             // when
             mvc.perform(
                 RestDocumentationRequestBuilders.post("/articles/{slug}", slug)
-                    .header(Constants.HEADER_INTERNAL, "")
+                    .headers(RequestHeaderFixture.create())
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(body)
             )
@@ -136,9 +136,58 @@ class ArticleControllerTest @Autowired constructor(
                 )
 
             // then
-            BDDMockito.verify(articleRepository).save(ArgumentMatchers.argThat {
-                it.slug == slug && it.title == req.title && it.content == req.content
-            })
+            BDDMockito.verify(articleRepository).save(
+                ArgumentMatchers.argThat {
+                    it.slug == slug && it.title == req.title && it.content == req.content
+                }
+            )
+        }
+    }
+
+    @Nested
+    inner class UpdateArticle {
+        @Test
+        fun `should respond ok`() {
+            // given
+            val slug = "slug"
+            val req = ArticleRequestDtoFixture.create()
+            ReflectionTestUtils.setField(req, "title", "newTitle")
+            ReflectionTestUtils.setField(req, "content", "newContent")
+
+            val body = objectMapper.writeValueAsString(req)
+
+            val article = ArticleFixture.create()
+            BDDMockito.given(articleRepository.findBySlug(ArgumentMatchers.matches(slug)))
+                .willReturn(article)
+
+            // when
+            mvc.perform(
+                RestDocumentationRequestBuilders.put("/articles/{slug}", slug)
+                    .headers(RequestHeaderFixture.create())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(body)
+            )
+                .andExpect(MockMvcResultMatchers.status().isOk)
+                .andDo(MockMvcResultHandlers.print())
+                .andDo(
+                    MockMvcRestDocumentation.document(
+                        "articles/update",
+                        Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
+                        Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
+                        HeaderDocumentation.requestHeaders(CommonDescriptors.internalHeaderDescriptor),
+                        RequestDocumentation.pathParameters(
+                            RequestDocumentation.parameterWithName("slug").description("슬러그")
+                        ),
+                        PayloadDocumentation.requestFields(ArticleControllerDescriptors.requestFields)
+                    )
+                )
+
+            // then
+            BDDMockito.verify(articleRepository).save(
+                ArgumentMatchers.argThat {
+                    it.slug == slug && it.title == req.title && it.content == req.content
+                }
+            )
         }
     }
 }

@@ -1,5 +1,6 @@
 package kim.myeongjae.spring_web_kotiln_blocking.article.domain.model
 
+import org.assertj.core.api.BDDAssertions
 import org.assertj.core.api.BDDAssertions.then
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -31,7 +32,7 @@ class ArticleTest {
     @Nested
     inner class Publish {
         @Test
-        fun publish() {
+        fun `should pass`() {
             // given
             val article = ArticleFixture.create()
             ReflectionTestUtils.setField(article, "published", false)
@@ -47,7 +48,7 @@ class ArticleTest {
     @Nested
     inner class Unpublish {
         @Test
-        fun unpublish() {
+        fun `should pass`() {
             // given
             val article = ArticleFixture.create()
             ReflectionTestUtils.setField(article, "published", true)
@@ -57,6 +58,26 @@ class ArticleTest {
 
             // then
             then(article.published).isFalse
+        }
+    }
+
+    @Nested
+    inner class Update {
+        @Test
+        fun `should pass`() {
+            // given
+            val article = ArticleFixture.create()
+            val dto = Article(title = "newTitle", content = "newContent", slug = "redundant")
+
+            BDDAssertions.assertThat(article.title).isNotEqualTo(dto.title)
+            BDDAssertions.assertThat(article.content).isNotEqualTo(dto.content)
+
+            // when
+            article.update(dto)
+
+            // then
+            BDDAssertions.assertThat(article.title).isEqualTo(dto.title)
+            BDDAssertions.assertThat(article.content).isEqualTo(dto.content)
         }
     }
 }
