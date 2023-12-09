@@ -23,6 +23,7 @@ object Libs {
         const val kotest = "5.8.0"
         const val asciidoctorConvert = "3.3.2"
         const val restdocs = "2.0.6.RELEASE"
+        const val kotlinCoroutineVersion = "1.8.0-RC"
     }
 
     object SpringBoot {
@@ -32,9 +33,13 @@ object Libs {
 
     object Kotlin {
         const val reflect = "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}"
+        const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinCoroutineVersion}"
     }
 
     object Test {
+        const val junitBom = "org.junit:junit-bom:5.9.1"
+        const val junit = "org.junit.jupiter:junit-jupiter"
+
         const val kotest = "io.kotest:kotest-runner-junit5:${Versions.kotest}"
         const val kotestAssertionsCore = "io.kotest:kotest-assertions-core:${Versions.kotest}"
         const val kotestProperty = "io.kotest:kotest-property:${Versions.kotest}"

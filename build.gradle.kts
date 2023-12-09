@@ -107,6 +107,18 @@ subprojects {
     repositories {
         mavenCentral()
     }
+
+    tasks.withType<Test> {
+        useJUnitPlatform()
+    }
+
+    dependencies {
+        testImplementation(platform(Libs.Test.junitBom))
+        testImplementation(Libs.Test.junit)
+        testImplementation(Libs.Test.kotest)
+        testImplementation(Libs.Test.kotestAssertionsCore)
+        testImplementation(Libs.Test.kotestProperty)
+    }
 }
 
 val springProjects = listOf(project(Libs.Module.App.springWebKotlinBlocking))
@@ -115,10 +127,6 @@ configure(springProjects) {
         plugin(Libs.Plugins.springBoot)
         plugin(Libs.Plugins.springDependencyManagement)
         plugin(Libs.Plugins.kotlinSpring)
-    }
-
-    tasks.withType<Test> {
-        useJUnitPlatform()
     }
 
     val intTestImplementation = setupIntTestSourceSet(this)
