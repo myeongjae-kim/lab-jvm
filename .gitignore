@@ -23,6 +23,7 @@ out/
 !**/src/test/**/out/
 .idea/workspace.xml
 .idea/sonarlint/
+.idea
 
 ### NetBeans ###
 /nbproject/private/
