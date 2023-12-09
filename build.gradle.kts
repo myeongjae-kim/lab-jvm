@@ -1,23 +1,25 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    `java-test-fixtures`
+    java
     jacoco
+    `java-test-fixtures`
 
-    id("org.springframework.boot") version "2.4.2"
-    id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
-    id("org.asciidoctor.convert") version "2.4.0"
-
-    kotlin("jvm") version "1.4.30"
-    kotlin("plugin.spring") version "1.4.30"
-    kotlin("plugin.jpa") version "1.4.30"
-    kotlin("plugin.allopen") version "1.4.30"
+    id(Libs.Plugins.springBoot) version Libs.Versions.springBoot
+    id(Libs.Plugins.springDependencyManagement) version Libs.Versions.springDependencyManagement
+    id(Libs.Plugins.asciidoctorConvert) version Libs.Versions.asciidoctorConvert
+    id(Libs.Plugins.ktlint) version Libs.Versions.ktlint
+    id(Libs.Plugins.ktlintIdea) version Libs.Versions.ktlint
+    id(Libs.Plugins.kotlinJvm) version Libs.Versions.kotlin
+    id(Libs.Plugins.kotlinSpring) version Libs.Versions.kotlin
+    id(Libs.Plugins.kotlinJpa) version Libs.Versions.kotlin
+    id(Libs.Plugins.kotlinAllopen) version Libs.Versions.kotlin
+    id(Libs.Plugins.kotlinNoArg) version Libs.Versions.kotlin
 }
 
 group = "kim.myeongjae"
 version = "1.0-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_11
+java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenCentral()
@@ -32,18 +34,22 @@ tasks.ktlintCheck {
 }
 
 subprojects {
-    apply(plugin = "org.jetbrains.kotlin.jvm")
-    apply(plugin = "org.jlleitschuh.gradle.ktlint")
-    apply(plugin = "org.gradle.jacoco")
+    apply {
+        plugin("java-test-fixtures")
+        plugin("org.gradle.jacoco")
+
+        plugin(Libs.Plugins.kotlinJvm)
+        plugin(Libs.Plugins.ktlint)
+        plugin(Libs.Plugins.asciidoctorConvert)
+    }
 
     tasks.withType<KotlinCompile> {
         kotlinOptions {
             freeCompilerArgs = listOf("-Xjsr305=strict")
-            jvmTarget = "11"
+            jvmTarget = "17"
         }
     }
 
-    // ////////// ktlint //////////
     tasks.ktlintFormat {
         group = "verification"
     }
@@ -56,13 +62,11 @@ subprojects {
         val excludedTasks = listOf(
             tasks.ktlintMainSourceSetCheck,
             tasks.ktlintTestSourceSetCheck,
-            tasks.ktlintTestFixturesSourceSetCheck
+            tasks.ktlintTestFixturesSourceSetCheck,
         )
         setDependsOn(dependsOn.filter { !excludedTasks.contains(it) })
     }
-    // ////////////////////////////
 
-    // ////////// jacoco //////////
     tasks.test {
         finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
     }
@@ -74,56 +78,50 @@ subprojects {
 
     tasks.withType<JacocoCoverageVerification> {
         afterEvaluate {
-            classDirectories.setFrom(files(classDirectories.files.map {
-                fileTree(it).apply {
-                    exclude(jacocoExcludePatterns)
-                }
-            }))
+            classDirectories.setFrom(
+                files(
+                    classDirectories.files.map {
+                        fileTree(it).apply {
+                            exclude(jacocoExcludePatterns)
+                        }
+                    },
+                ),
+            )
         }
     }
 
     tasks.withType<JacocoReport> {
         afterEvaluate {
-            classDirectories.setFrom(files(classDirectories.files.map {
-                fileTree(it).apply {
-                    exclude(jacocoExcludePatterns)
-                }
-            }))
+            classDirectories.setFrom(
+                files(
+                    classDirectories.files.map {
+                        fileTree(it).apply {
+                            exclude(jacocoExcludePatterns)
+                        }
+                    },
+                ),
+            )
         }
     }
-    // ////////////////////////////
 
     repositories {
         mavenCentral()
     }
 }
 
-// ///////// spring projects common configuration ///////////
-val springProjects = listOf(project(":spring-web-kotlin-blocking"))
+val springProjects = listOf(project(Libs.Module.App.springWebKotlinBlocking))
 configure(springProjects) {
-    apply(plugin = "org.springframework.boot")
-    apply(plugin = "io.spring.dependency-management")
-    apply(plugin = "org.jetbrains.kotlin.plugin.spring")
-    apply(plugin = "org.gradle.java-test-fixtures")
+    apply {
+        plugin(Libs.Plugins.springBoot)
+        plugin(Libs.Plugins.springDependencyManagement)
+        plugin(Libs.Plugins.kotlinSpring)
+    }
 
     tasks.withType<Test> {
         useJUnitPlatform()
     }
 
-    // ///////// intTest sourceSet ///////////
-    sourceSets {
-        create("intTest") {
-            compileClasspath += sourceSets.main.get().output
-            runtimeClasspath += sourceSets.main.get().output
-
-            compileClasspath += sourceSets.testFixtures.get().output
-            runtimeClasspath += sourceSets.testFixtures.get().output
-        }
-    }
-
-    val intTestImplementation by configurations.getting {
-        extendsFrom(configurations.implementation.get())
-    }
+    val intTestImplementation = setupIntTestSourceSet(this)
 
     configurations["intTestRuntimeOnly"].extendsFrom(configurations.runtimeOnly.get())
 
@@ -139,35 +137,25 @@ configure(springProjects) {
     tasks.check {
         dependsOn(tasks.ktlintFormat, integrationTest)
     }
-    // ///////////////////////////////////////
 
     dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-reflect")
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+        implementation(Libs.Kotlin.reflect)
 
-        developmentOnly("org.springframework.boot:spring-boot-devtools")
-        testImplementation("org.springframework.boot:spring-boot-starter-test")
-        testFixturesImplementation("org.springframework.boot:spring-boot-starter-test")
-        intTestImplementation("org.springframework.boot:spring-boot-starter-test")
+        developmentOnly(Libs.SpringBoot.devTools)
+        Libs.SpringBoot.starterTest.run {
+            implementation(this)
+            intTestImplementation(this)
+            testFixturesImplementation(this)
+        }
     }
 }
-// //////////////////////////////////////////////////////////
 
-// ///////// spring api projects common configuration ///////////
-val springApiProjects = listOf(project(":spring-web-kotlin-blocking"))
+val springApiProjects = listOf(project(Libs.Module.App.springWebKotlinBlocking))
 configure(springApiProjects) {
-    apply(plugin = "org.asciidoctor.convert")
-
-    sourceSets {
-        // 이 설정이 없으면 test sourceSet에서 main을 인식하지 못한다. 원래 자동으로 해야하는데.. 왜지?
-        test.get().compileClasspath += sourceSets.main.get().output
-        test.get().runtimeClasspath += sourceSets.main.get().output
-
-        testFixtures.get().compileClasspath += sourceSets.main.get().output
-        testFixtures.get().runtimeClasspath += sourceSets.main.get().output
+    apply {
+        plugin(Libs.Plugins.asciidoctorConvert)
     }
 
-    // ///////// spring restdocs ///////////
     val snippetsDir = file("build/generated-snippets")
 
     tasks.test {
@@ -185,11 +173,55 @@ configure(springApiProjects) {
             into("static/docs")
         }
     }
-    // /////////////////////////////////////
 
+    val asciidoctorExt: Configuration by configurations.creating
     dependencies {
-        asciidoctor("org.springframework.restdocs:spring-restdocs-asciidoctor")
-        testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
+        asciidoctorExt(Libs.Test.restdocsAsciidoctor)
+        testImplementation(Libs.Test.restdocsMockMvc)
     }
 }
-// //////////////////////////////////////////////////////////////
+
+fun setupIntTestSourceSet(vararg projects: Project): Configuration {
+    lateinit var intTestImplementationToReturn: Configuration
+
+    configure(projects.toList()) {
+        sourceSets {
+            create("intTest") {
+                compileClasspath += sourceSets.main.get().output
+                runtimeClasspath += sourceSets.main.get().output
+
+                compileClasspath += sourceSets.testFixtures.get().output
+                runtimeClasspath += sourceSets.testFixtures.get().output
+            }
+        }
+
+        val intTestImplementation by configurations.getting {
+            extendsFrom(configurations.implementation.get())
+        }
+        intTestImplementationToReturn = intTestImplementation
+
+        configurations["intTestRuntimeOnly"].extendsFrom(configurations.runtimeOnly.get())
+
+        dependencies {
+            intTestImplementation(Libs.SpringBoot.starterTest) {
+                exclude(module = "mockito-core")
+            }
+            intTestImplementation(Libs.Test.kotest)
+            intTestImplementation(Libs.Test.kotestAssertionsCore)
+            intTestImplementation(Libs.Test.kotestProperty)
+        }
+
+        val integrationTest = task<Test>("intTest") {
+            description = "Runs integration tests."
+            group = "verification"
+
+            testClassesDirs = sourceSets["intTest"].output.classesDirs
+            classpath = sourceSets["intTest"].runtimeClasspath
+            shouldRunAfter("test")
+        }
+
+        tasks.check { dependsOn(integrationTest) }
+    }
+
+    return intTestImplementationToReturn
+}

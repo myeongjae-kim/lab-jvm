@@ -16,9 +16,9 @@ class ControllerExceptionAdvice {
         ApiError(
             status = HttpStatus.NOT_FOUND.value(),
             error = HttpStatus.NOT_FOUND.reasonPhrase,
-            message = e.localizedMessage
+            message = e.localizedMessage,
         ),
-        HttpStatus.NOT_FOUND
+        HttpStatus.NOT_FOUND,
     )
 
     @ExceptionHandler(value = [MethodArgumentNotValidException::class])
@@ -26,9 +26,11 @@ class ControllerExceptionAdvice {
         ApiError(
             status = HttpStatus.BAD_REQUEST.value(),
             error = HttpStatus.BAD_REQUEST.reasonPhrase,
-            message = when(val objectError = ex.bindingResult.allErrors.first()) {
+            message = when (val objectError = ex.bindingResult.allErrors.first()) {
                 is FieldError -> "${objectError.field} ${objectError.defaultMessage}"
                 else -> objectError.defaultMessage!!
-            }
-        ), HttpStatus.BAD_REQUEST)
+            },
+        ),
+        HttpStatus.BAD_REQUEST,
+    )
 }
