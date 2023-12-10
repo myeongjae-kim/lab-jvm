@@ -3,6 +3,10 @@ plugins {
     kotlin("plugin.allopen")
 }
 
+repositories {
+    maven { setUrl("https://jitpack.io") }
+}
+
 allOpen {
     annotation("jakarta.persistence.Entity")
     annotation("jakarta.persistence.Embeddable")
@@ -15,6 +19,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    // https://github.com/FasterXML/jackson-module-kotlin/issues/199#issuecomment-1427990047
+    implementation("com.github.ProjectMapK:jackson-module-kogera:2.16.0-beta8")
     runtimeOnly("com.h2database:h2")
     runtimeOnly("mysql:mysql-connector-java:8.0.33")
 
