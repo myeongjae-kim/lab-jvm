@@ -27,16 +27,16 @@ class ArticleRepositoryTest @Autowired constructor(
         @Test
         fun `should pass`() {
             val article = Article(title = "title", content = "content", slug = "slug")
-            article.id shouldBe null
+            article.id shouldBe ArticleId(0L)
 
             articleRepository.save(article)
-            article.id shouldNotBe null
-            val id = article.id!!
+            article.id shouldNotBe ArticleId(0L)
+            val id = article.id
 
             entityManager.flush()
             entityManager.clear()
 
-            val savedArticle = articleRepository.findById(article.id!!).orElseThrow()
+            val savedArticle = articleRepository.findById(article.id.value).orElseThrow()
             savedArticle.id shouldBe id
         }
     }

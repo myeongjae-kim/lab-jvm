@@ -1,5 +1,6 @@
 package kim.myeongjae.springwebkotilnblocking.article.domain.model
 
+import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
@@ -19,7 +20,10 @@ class Article(
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null; protected set
+    @Column(name = "id")
+    private val _id: Long = 0L
+    val id: ArticleId
+        get() = ArticleId(_id)
 
     @CreationTimestamp
     var createdAt: ZonedDateTime? = null; protected set

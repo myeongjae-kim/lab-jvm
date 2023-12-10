@@ -9,7 +9,7 @@ class ArticleFixture {
         fun create(): Article {
             val article = Article(title = "title", content = "content", slug = "slug")
 
-            ReflectionTestUtils.setField(article, "id", 1L)
+            ReflectionTestUtils.setField(article, "_id", 1L)
             ReflectionTestUtils.setField(article, "createdAt", ZonedDateTime.now())
             ReflectionTestUtils.setField(article, "updatedAt", ZonedDateTime.now())
             article.publish()

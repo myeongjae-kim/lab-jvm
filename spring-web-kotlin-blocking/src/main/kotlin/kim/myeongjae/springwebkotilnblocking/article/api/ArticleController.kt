@@ -27,8 +27,11 @@ import org.springframework.web.bind.annotation.RestController
 class ArticleController @Autowired constructor(private val articleRepository: ArticleRepository) {
     @GetMapping("/{slug}")
     @JsonView(Views.Public::class)
-    fun getPublished(@PathVariable slug: String): ArticleResponseDto =
-        ArticleResponseDto.from(articleRepository.findBySlugAndPublishedTrue(slug))
+    fun getPublished(@PathVariable slug: String): ArticleResponseDto {
+        val article = articleRepository.findBySlugAndPublishedTrue(slug)
+        val from = ArticleResponseDto.from(article)
+        return from
+    }
 
     @GetMapping(path = ["/{slug}"], headers = [Constants.HEADER_INTERNAL])
     fun get(@PathVariable slug: String): ArticleResponseDto =
@@ -58,11 +61,9 @@ class ArticleController @Autowired constructor(private val articleRepository: Ar
     }
 
     @GetMapping
-    fun getPublishedArticles(@RequestParam page: Int): Page<ArticleListResponseDto> {
-        println("asdf")
-        return articleRepository.findAllByPublishedTrue(PageRequest.of(page, Constants.PAGE_SIZE))
+    fun getPublishedArticles(@RequestParam page: Int): Page<ArticleListResponseDto> =
+        articleRepository.findAllByPublishedTrue(PageRequest.of(page, Constants.PAGE_SIZE))
             .map(ArticleListResponseDto::from)
-    }
 
     @GetMapping(headers = [Constants.HEADER_INTERNAL])
     fun getArticles(@RequestParam page: Int): Page<ArticleListResponseDto> =
