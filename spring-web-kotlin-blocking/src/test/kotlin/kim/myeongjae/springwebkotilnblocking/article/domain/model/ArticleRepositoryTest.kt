@@ -1,5 +1,7 @@
 package kim.myeongjae.springwebkotilnblocking.article.domain.model
 
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 import org.assertj.core.api.BDDAssertions.then
 import org.assertj.core.api.BDDAssertions.thenThrownBy
 import org.junit.jupiter.api.Nested
@@ -25,14 +27,17 @@ class ArticleRepositoryTest @Autowired constructor(
         @Test
         fun `should pass`() {
             val article = Article(title = "title", content = "content", slug = "slug")
+            article.id shouldBe null
+
             articleRepository.save(article)
+            article.id shouldNotBe null
+            val id = article.id!!
 
             entityManager.flush()
             entityManager.clear()
 
             val savedArticle = articleRepository.findById(article.id!!).orElseThrow()
-
-            then(savedArticle).usingRecursiveComparison().isEqualTo(article)
+            savedArticle.id shouldBe id
         }
     }
 

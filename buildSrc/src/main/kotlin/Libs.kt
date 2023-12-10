@@ -16,14 +16,15 @@ object Libs {
     }
 
     object Versions {
-        const val springBoot = "2.7.12"
-        const val springDependencyManagement = "1.0.15.RELEASE"
+        const val springBoot = "3.2.0"
+        const val springDependencyManagement = "1.1.4"
         const val kotlin = "1.9.20"
         const val ktlint = "11.6.1"
         const val kotest = "5.8.0"
         const val asciidoctorConvert = "3.3.2"
         const val restdocs = "2.0.6.RELEASE"
         const val kotlinCoroutineVersion = "1.8.0-RC"
+        const val kotlinJackson = "2.16.0"
     }
 
     object SpringBoot {
@@ -33,6 +34,7 @@ object Libs {
 
     object Kotlin {
         const val reflect = "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}"
+        const val kotlinJackson = "com.fasterxml.jackson.module:jackson-module-kotlin:${Versions.kotlinJackson}"
         const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinCoroutineVersion}"
     }
 

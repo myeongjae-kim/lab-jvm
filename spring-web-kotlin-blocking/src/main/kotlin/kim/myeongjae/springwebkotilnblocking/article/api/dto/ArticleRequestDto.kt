@@ -1,7 +1,7 @@
 package kim.myeongjae.springwebkotilnblocking.article.api.dto
 
+import jakarta.validation.constraints.NotBlank
 import kim.myeongjae.springwebkotilnblocking.article.domain.model.Article
-import javax.validation.constraints.NotBlank
 
 data class ArticleRequestDto(
     @field:NotBlank val title: String,

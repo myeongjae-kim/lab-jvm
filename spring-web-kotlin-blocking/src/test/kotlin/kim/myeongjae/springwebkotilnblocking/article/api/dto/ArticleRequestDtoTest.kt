@@ -1,12 +1,12 @@
 package kim.myeongjae.springwebkotilnblocking.article.api.dto
 
+import jakarta.validation.Validation
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.BDDAssertions.then
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import org.springframework.test.util.ReflectionTestUtils
-import javax.validation.Validation
 
 class ArticleRequestDtoTest {
 

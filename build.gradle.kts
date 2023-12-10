@@ -45,7 +45,7 @@ subprojects {
 
     tasks.withType<KotlinCompile> {
         kotlinOptions {
-            freeCompilerArgs = listOf("-Xjsr305=strict")
+            freeCompilerArgs += "-Xjsr305=strict"
             jvmTarget = "17"
         }
     }
@@ -148,6 +148,7 @@ configure(springProjects) {
 
     dependencies {
         implementation(Libs.Kotlin.reflect)
+        implementation(Libs.Kotlin.kotlinJackson)
 
         developmentOnly(Libs.SpringBoot.devTools)
         Libs.SpringBoot.starterTest.run {

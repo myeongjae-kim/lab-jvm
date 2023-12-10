@@ -22,6 +22,7 @@ import org.springframework.http.MediaType
 import org.springframework.restdocs.headers.HeaderDocumentation
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get
 import org.springframework.restdocs.operation.preprocess.Preprocessors
 import org.springframework.restdocs.payload.PayloadDocumentation
 import org.springframework.restdocs.request.RequestDocumentation
@@ -49,7 +50,7 @@ class ArticleControllerTest @Autowired constructor(
             BDDMockito.given(articleRepository.findBySlugAndPublishedTrue(ArgumentMatchers.matches(slug)))
                 .willReturn(article)
 
-            mvc.perform(RestDocumentationRequestBuilders.get("/articles/{slug}", slug))
+            mvc.perform(get("/articles/{slug}", slug))
                 .andExpect(MockMvcResultMatchers.status().isOk)
                 .andDo(MockMvcResultHandlers.print())
                 .andDo(
@@ -73,7 +74,7 @@ class ArticleControllerTest @Autowired constructor(
                 .will { throw EmptyResultDataAccessException(0) }
 
             // then
-            mvc.perform(RestDocumentationRequestBuilders.get("/articles/{slug}", slug))
+            mvc.perform(get("/articles/{slug}", slug))
                 .andExpect(MockMvcResultMatchers.status().isNotFound)
         }
     }
@@ -90,7 +91,7 @@ class ArticleControllerTest @Autowired constructor(
                 .willReturn(article)
 
             mvc.perform(
-                RestDocumentationRequestBuilders.get("/articles/{slug}", slug).headers(RequestHeaderFixture.create()),
+                get("/articles/{slug}", slug).headers(RequestHeaderFixture.create()),
             )
                 .andExpect(MockMvcResultMatchers.status().isOk)
                 .andDo(MockMvcResultHandlers.print())
@@ -230,7 +231,7 @@ class ArticleControllerTest @Autowired constructor(
                 ),
             ).willReturn(page)
 
-            mvc.perform(RestDocumentationRequestBuilders.get("/articles?page={page}", pageNo))
+            mvc.perform(get("/articles?page={page}", pageNo))
                 .andExpect(MockMvcResultMatchers.status().isOk)
                 .andDo(MockMvcResultHandlers.print())
                 .andDo(
@@ -238,7 +239,7 @@ class ArticleControllerTest @Autowired constructor(
                         "articles/get-published-articles",
                         Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
                         Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
-                        RequestDocumentation.requestParameters(
+                        RequestDocumentation.queryParameters(
                             RequestDocumentation.parameterWithName("page").description("페이지 번호. Zero based"),
                         ),
                         PayloadDocumentation.responseFields(
@@ -272,7 +273,7 @@ class ArticleControllerTest @Autowired constructor(
                 .willReturn(page)
 
             mvc.perform(
-                RestDocumentationRequestBuilders.get("/articles?page={page}", 0).headers(RequestHeaderFixture.create()),
+                get("/articles?page={page}", 0).headers(RequestHeaderFixture.create()),
             )
                 .andExpect(MockMvcResultMatchers.status().isOk)
                 .andDo(MockMvcResultHandlers.print())
@@ -282,7 +283,7 @@ class ArticleControllerTest @Autowired constructor(
                         Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
                         Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
                         HeaderDocumentation.requestHeaders(CommonDescriptors.internalHeaderDescriptor),
-                        RequestDocumentation.requestParameters(
+                        RequestDocumentation.queryParameters(
                             RequestDocumentation.parameterWithName("page").description("페이지 번호. Zero based"),
                         ),
                         PayloadDocumentation.responseFields(

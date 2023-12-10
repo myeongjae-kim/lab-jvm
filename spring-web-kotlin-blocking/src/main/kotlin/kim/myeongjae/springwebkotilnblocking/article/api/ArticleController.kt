@@ -1,6 +1,7 @@
 package kim.myeongjae.springwebkotilnblocking.article.api
 
 import com.fasterxml.jackson.annotation.JsonView
+import jakarta.validation.Valid
 import kim.myeongjae.common.Constants
 import kim.myeongjae.common.jsonview.Views
 import kim.myeongjae.springwebkotilnblocking.article.api.dto.ArticleListResponseDto
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
-import javax.validation.Valid
 
 @RestController
 @RequestMapping("/articles")
@@ -58,9 +58,11 @@ class ArticleController @Autowired constructor(private val articleRepository: Ar
     }
 
     @GetMapping
-    fun getPublishedArticles(@RequestParam page: Int): Page<ArticleListResponseDto> =
-        articleRepository.findAllByPublishedTrue(PageRequest.of(page, Constants.PAGE_SIZE))
+    fun getPublishedArticles(@RequestParam page: Int): Page<ArticleListResponseDto> {
+        println("asdf")
+        return articleRepository.findAllByPublishedTrue(PageRequest.of(page, Constants.PAGE_SIZE))
             .map(ArticleListResponseDto::from)
+    }
 
     @GetMapping(headers = [Constants.HEADER_INTERNAL])
     fun getArticles(@RequestParam page: Int): Page<ArticleListResponseDto> =
