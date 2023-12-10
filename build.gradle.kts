@@ -133,17 +133,8 @@ configure(springProjects) {
 
     configurations["intTestRuntimeOnly"].extendsFrom(configurations.runtimeOnly.get())
 
-    val integrationTest = task<Test>("integrationTest") {
-        description = "Runs integration tests."
-        group = "verification"
-
-        testClassesDirs = sourceSets["intTest"].output.classesDirs
-        classpath = sourceSets["intTest"].runtimeClasspath
-        shouldRunAfter("test")
-    }
-
     tasks.check {
-        dependsOn(tasks.ktlintFormat, integrationTest)
+        dependsOn(tasks.ktlintFormat, intTestImplementation)
     }
 
     dependencies {
@@ -206,6 +197,7 @@ fun setupIntTestSourceSet(vararg projects: Project): Configuration {
 
         val intTestImplementation by configurations.getting {
             extendsFrom(configurations.implementation.get())
+            isCanBeResolved = true
         }
         intTestImplementationToReturn = intTestImplementation
 

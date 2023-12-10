@@ -21,7 +21,7 @@ class ArticleTest {
             val article = Article(title = title, content = content, slug = "slug")
 
             // then
-            then(article).hasNoNullFieldsOrPropertiesExcept("id", "createdAt", "updatedAt")
+            then(article).hasNoNullFieldsOrPropertiesExcept("id", "createdAt", "updatedAt", "deletedAt")
             then(article.title).isEqualTo(title)
             then(article.content).isEqualTo(content)
             then(article.published).isEqualTo(false)

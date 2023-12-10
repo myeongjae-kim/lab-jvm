@@ -12,8 +12,8 @@ data class ArticleListResponseDto(
 ) {
     companion object {
         fun from(article: Article): ArticleListResponseDto = ArticleListResponseDto(
-            createdAt = article.createdAt!!,
-            updatedAt = article.updatedAt!!,
+            createdAt = article.createdAt,
+            updatedAt = article.updatedAt,
             title = article.title,
             slug = article.slug,
             published = article.published,
