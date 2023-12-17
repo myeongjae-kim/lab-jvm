@@ -116,6 +116,37 @@ AWS에서도 위 3개 프레임워크에 대한 예시 코드를 제공한다.
 - [Serverless Quarkus Application Demo](https://github.com/aws-samples/serverless-java-frameworks-samples/tree/main/micronaut)
 - [Serverless Micronaut Application Demo](https://github.com/aws-samples/serverless-java-frameworks-samples/tree/main/quarkus)
 
+### Trouble Shooting
+
+#### colima
+
+`sam local`로 실행할 때 colima를 사용하고 있으면 docker 관련 에러가 발생할 수 있다. docker desktop과 colima의 socket 위치가 달라서 발생하는
+문제. 아래처럼 환경변수를 설정해주면 해결된다.
+
+```bash
+export DOCKER_HOST=unix:///Users/{your-account}/.colima/default/docker.sock
+```
+
+```
+docker.errors.APIError: 500 Server Error for http+docker://localhost/v1.35/containers/dfe13bbdefbfb0b85c12ecf03ab29a5dd9c1da4c34c0602d73722132593a1c81?v=False&link=False&force=True: Internal Server Error ("Could not kill running container                      
+dfe13bbdefbfb0b85c12ecf03ab29a5dd9c1da4c34c0602d73722132593a1c81, cannot remove - container dfe13bbdefbf PID 2213 is zombie and can not be killed. Use the --init option when creating containers to run an init inside the container that forwards signals and     
+reaps processes") 
+```
+
+위와 같은 에러가 발생하기도 함. lambda 자체는 실행 잘 되는데 container가 종료되지 않아서 500 에러가 발생한다.
+
+https://github.com/abiosoft/colima/issues/856#issuecomment-1817474479 여기서 최신 개발 버전으로 설치해보라고 했는데도 해결이 안되어서
+찾다보니 아래처럼 mount type을 virtiofs로 설정하라는 답변을 발견
+
+https://github.com/abiosoft/colima/issues/552#issuecomment-1757030929
+
+```
+colima delete
+colima start --vm-type vz --mount-type virtiofs
+```
+
+이렇게 실행하면 잘 된다.
+
 ## Reference
 
 - https://www.formkiq.com/blog/tutorials/aws-lambda-graalvm/

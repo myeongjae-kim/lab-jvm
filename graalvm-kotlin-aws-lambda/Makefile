@@ -22,3 +22,6 @@ deploy-staging:
 
 delete-staging:
 	PROFILE=staging make delete
+
+local:
+	DOCKER_HOST=unix:///Users/$$(whoami)/.colima/default/docker.sock sam local start-api #--debug
