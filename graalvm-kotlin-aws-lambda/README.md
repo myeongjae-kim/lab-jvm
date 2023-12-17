@@ -41,6 +41,13 @@ java.lang.NullPointerException
         at java.base@21.0.1/java.lang.invoke.LambdaForm$DMH/sa346b79c.invokeStaticInit(LambdaForm$DMH)
 ```
 
+#### Build on Docker
+
+```bash
+docker pull ghcr.io/graalvm/graalvm-community:21 #JDK 21
+
+```
+
 
 ## [lambda-runtime-graalvm](https://github.com/formkiq/lambda-runtime-graalvm)
 
