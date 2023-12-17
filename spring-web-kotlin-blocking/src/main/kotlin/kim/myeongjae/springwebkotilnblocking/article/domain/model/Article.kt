@@ -11,16 +11,14 @@ class Article(
     title: String,
     content: String,
     slug: String,
-) : BaseEntity<ArticleId>(::ArticleId) {
+) : BaseEntity() {
+    val id: ArticleId
+        get() = ArticleId(this._id)
 
     var title: String = title; protected set
     var content: String = content; protected set
     var slug: String = slug; protected set
     var published = false; protected set
-
-    override fun postLoad() {
-        this.idConstructor = ::ArticleId
-    }
 
     fun publish() {
         published = true
