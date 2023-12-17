@@ -32,7 +32,7 @@ Resources:
   GraalvmKotlinAwsLambda:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      CodeUri: graalvm-kotlin-aws-lambda # Path to the root directory containing code and dependencies.
+      CodeUri: ./ # Path to the root directory containing code and dependencies.
       Handler: kim.myeongjae.graalvmkotlin.awslambda.MyFunction::handleRequest
       FunctionName: !Sub "GraalvmKotlinAwsLambda-${Profile}"
       Runtime: provided.al2023
