@@ -34,8 +34,8 @@ class MyFunction : RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyRe
 
     private fun getPageContents(address: String): String {
         val url = URI(address).toURL()
-        BufferedReader(InputStreamReader(url.openStream())).use { br ->
-            return br.lines().collect(Collectors.joining(System.lineSeparator()))
+        return BufferedReader(InputStreamReader(url.openStream())).use { br ->
+            br.lines().collect(Collectors.joining(System.lineSeparator()))
         }
     }
 }

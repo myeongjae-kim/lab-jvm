@@ -1,5 +1,7 @@
 # graalvm-kotlin-aws-lambda
 
+JDK21, GraalVM, Kotlin, AWS Lambda, AWS API Gateway, AWS SAM
+
 ## Build Command
 
 ### Without Lambda Runtime
@@ -41,13 +43,23 @@ java.lang.NullPointerException
         at java.base@21.0.1/java.lang.invoke.LambdaForm$DMH/sa346b79c.invokeStaticInit(LambdaForm$DMH)
 ```
 
-#### Build on Docker
+#### Deploy
+
+project root에서
 
 ```bash
-docker pull ghcr.io/graalvm/graalvm-community:21 #JDK 21
+sam build
 
+AWS_PROFILE=your-profile sam deploy --stack-name GraalvmKotlinAwsLambda --parameter-overrides Stage=staging 
 ```
 
+배포 관련 파일 목록
+
+- [../samconfig.toml](../samconfig.toml)
+- [../template.yaml](../template.yaml)
+- [build_graalvm.sh](build_graalvm.sh)
+- [Makefile](Makefile)
+- [build.gradle.kts](build.gradle.kts)
 
 ## [lambda-runtime-graalvm](https://github.com/formkiq/lambda-runtime-graalvm)
 
@@ -64,6 +76,28 @@ lambda-runtime-graalvm이 해준다. [LambdaRuntime.java의 main함수](https://
 [가이드](https://www.formkiq.com/blog/tutorials/aws-lambda-graalvm/)에서는 `src/main/resources/reflect.json`을 생성하고
 GraalVM 매개변수로 넣어준다 (`-H:ReflectionConfigurationFiles=/working/src/main/resources/reflect.json`)
 
+객체를 json으로 serialize/deserialize할 때 reflection을 사용하므로 아래를 참고해서 설정한다.
+
+```json lines
+[
+  // deserialize
+  {
+    "name": "com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent",
+    "allDeclaredConstructors": true,
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allPublicMethods": true,
+    "unsafeAllocated": true // 기본 생성자 호출
+  },
+  // serialize
+  {
+    "name": "com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent",
+    "allDeclaredFields": true,
+    "allPublicFields": true
+  }
+]
+```
+
 [lambda-runtime-graalvm](https://github.com/formkiq/lambda-runtime-graalvm)도 충분히 잘 작동할 것 같지만 운영 환경에서 사용하기에는
 라이브러리의 스타 수가 너무 적음.. 코드가 간단한 편이라 잘 검토하고 써봐도 될 것 같다. 굳이 프레임워크 쓰는 것보다 간단한데?
 찜찜하면 Spring Cloud Function, Quarkus, Micronaut 중에 하나를 선택해서 써도 괜찮을 것 같다. 이 프레임워크들도
@@ -76,6 +110,11 @@ lambda-runtime-graalvm가 하는 일들을 해준다. 테스트 환경도 제공
 - Micronaut: https://guides.micronaut.io/latest/mn-application-aws-lambda-graalvm-gradle-java.html
 
 Quarkus, Micronaut 중에는 Quarkus가 더 인기가 좋아보인다.
+
+AWS에서도 위 3개 프레임워크에 대한 예시 코드를 제공한다.
+- [Serverless Spring Boot Application Demo](https://github.com/aws-samples/serverless-java-frameworks-samples/tree/main/springboot)
+- [Serverless Quarkus Application Demo](https://github.com/aws-samples/serverless-java-frameworks-samples/tree/main/micronaut)
+- [Serverless Micronaut Application Demo](https://github.com/aws-samples/serverless-java-frameworks-samples/tree/main/quarkus)
 
 ## Reference
 

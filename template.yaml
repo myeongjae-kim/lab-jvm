@@ -3,6 +3,15 @@ Transform: AWS::Serverless-2016-10-31
 Description: >
   graalvm-kotlin-aws-lambda
 
+
+Parameters:
+  Profile:
+    Type: String
+    AllowedValues:
+      - prod
+      - staging
+    Description: Enter profile name prod or staging.
+
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
@@ -16,12 +25,17 @@ Globals:
   Api:
     TracingEnabled: true
 Resources:
+  GraalvmKotlinApiGateway:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: !Sub ${Profile}
   GraalvmKotlinAwsLambda:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      CodeUri: GraalvmKotlinAwsLambda
+      CodeUri: graalvm-kotlin-aws-lambda # Path to the root directory containing code and dependencies.
       Handler: kim.myeongjae.graalvmkotlin.awslambda.MyFunction::handleRequest
-      Runtime: java21
+      FunctionName: !Sub "GraalvmKotlinAwsLambda-${Profile}"
+      Runtime: provided.al2023
       Architectures:
       - arm64
       MemorySize: 128
@@ -34,12 +48,14 @@ Resources:
           Properties:
             Path: /hello
             Method: get
+            RestApiId: !Ref GraalvmKotlinApiGateway
+    Metadata:
+      BuildMethod: makefile
 
   ApplicationResourceGroup:
     Type: AWS::ResourceGroups::Group
     Properties:
-      Name:
-        Fn::Sub: ApplicationInsights-SAM-${AWS::StackName}
+      Name: !Sub ApplicationInsights-SAM-${AWS::StackName}
       ResourceQuery:
         Type: CLOUDFORMATION_STACK_1_0
   ApplicationInsightsMonitoring:
@@ -52,9 +68,9 @@ Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-  GraalvmKotlinAwsLambdaApi:
-    Description: API Gateway endpoint URL for Prod stage for Hello World function
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
+  GraalvmKotlinApiGateway:
+    Description: API Gateway endpoint URL for Hello World function
+    Value: !Sub "https://${GraalvmKotlinApiGateway}.execute-api.${AWS::Region}.amazonaws.com/${Profile}/hello/"
   GraalvmKotlinAwsLambda:
     Description: GraalvmKotlinAwsLambda Lambda Function ARN
     Value: !GetAtt GraalvmKotlinAwsLambda.Arn
