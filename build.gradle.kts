@@ -19,7 +19,7 @@ plugins {
 
 group = "kim.myeongjae"
 version = "1.0-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_17
+java.sourceCompatibility = JavaVersion.VERSION_21
 
 repositories {
     mavenCentral()
@@ -40,13 +40,12 @@ subprojects {
 
         plugin(Libs.Plugins.kotlinJvm)
         plugin(Libs.Plugins.ktlint)
-        plugin(Libs.Plugins.asciidoctorConvert)
     }
 
     tasks.withType<KotlinCompile> {
         kotlinOptions {
             freeCompilerArgs += "-Xjsr305=strict"
-            jvmTarget = "17"
+            jvmTarget = "21"
         }
     }
 
@@ -127,6 +126,7 @@ configure(springProjects) {
         plugin(Libs.Plugins.springBoot)
         plugin(Libs.Plugins.springDependencyManagement)
         plugin(Libs.Plugins.kotlinSpring)
+        plugin(Libs.Plugins.asciidoctorConvert)
     }
 
     val intTestImplementation = setupIntTestSourceSet(this)
