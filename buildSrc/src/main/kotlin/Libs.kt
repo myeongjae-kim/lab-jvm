@@ -13,6 +13,7 @@ object Libs {
         const val kotlinAllopen = "org.jetbrains.kotlin.plugin.allopen"
         const val kotlinNoArg = "org.jetbrains.kotlin.plugin.noarg"
         const val asciidoctorConvert = "org.asciidoctor.jvm.convert"
+        const val shadowJar = "com.github.johnrengelman.shadow"
     }
 
     object Versions {
@@ -25,6 +26,7 @@ object Libs {
         const val restdocs = "2.0.6.RELEASE"
         const val kotlinCoroutineVersion = "1.8.0-RC"
         const val kotlinJackson = "2.16.0"
+        const val shadowJarVersion = "8.1.1"
     }
 
     object SpringBoot {
