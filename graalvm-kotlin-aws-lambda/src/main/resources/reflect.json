@@ -1,0 +1,9 @@
+[
+  {
+    "name": "kim.myeongjae.graalvmkotlin.awslambda.MyFunction",
+    "allDeclaredConstructors": true,
+    "allPublicConstructors": true,
+    "allDeclaredMethods": true,
+    "allPublicMethods": true
+  }
+]

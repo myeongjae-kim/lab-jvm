@@ -1,15 +1,19 @@
 plugins {
     id(Libs.Plugins.shadowJar) version (Libs.Versions.shadowJarVersion)
-    application
 }
 
 repositories {
     mavenCentral()
 }
 
-application {
-    mainClass.set("kim.myeongjae.graalvmkotlin.awslambda.MainKt")
+dependencies {
+    implementation(Libs.AWS.lambdaCore)
+    implementation(Libs.AWS.lambdaEvents)
+    implementation(Libs.lambdaRuntimeGraalvm)
 }
 
-dependencies {
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = "com.formkiq.lambda.runtime.graalvm.LambdaRuntime"
+    }
 }

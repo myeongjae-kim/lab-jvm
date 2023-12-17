@@ -27,11 +27,19 @@ object Libs {
         const val kotlinCoroutineVersion = "1.8.0-RC"
         const val kotlinJackson = "2.16.0"
         const val shadowJarVersion = "8.1.1"
+        const val awsLambdaCore = "1.2.3"
+        const val awsLambdaEvents = "3.11.4"
+        const val lambdaRuntimeGraalvm = "2.4.0"
     }
 
     object SpringBoot {
         const val starterTest = "org.springframework.boot:spring-boot-starter-test"
         const val devTools = "org.springframework.boot:spring-boot-devtools"
+    }
+
+    object AWS {
+        const val lambdaCore = "com.amazonaws:aws-lambda-java-core:${Versions.awsLambdaCore}"
+        const val lambdaEvents = "com.amazonaws:aws-lambda-java-events:${Versions.awsLambdaEvents}"
     }
 
     object Kotlin {
@@ -59,4 +67,5 @@ object Libs {
 
     const val h2 = "com.h2database:h2"
     const val jpa = "jakarta.persistence:jakarta.persistence-api"
+    const val lambdaRuntimeGraalvm = "com.formkiq:lambda-runtime-graalvm:${Versions.lambdaRuntimeGraalvm}"
 }
