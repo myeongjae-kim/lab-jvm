@@ -50,7 +50,7 @@ Resources:
             Method: get
             RestApiId: !Ref GraalvmKotlinApiGateway
     Metadata:
-      BuildMethod: makefile
+      BuildMethod: makefile # Makefile의 build-GraalvmKotlinAwsLambda target을 사용하여 빌드
 
   ApplicationResourceGroup:
     Type: AWS::ResourceGroups::Group
